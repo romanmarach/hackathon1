@@ -1,0 +1,1110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debt Decoder — NJIT Financial Aid Companion</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <!-- ── SIDEBAR ────────────────────────────────────────────── -->
+      <aside class="sidebar">
+        <div class="s-logo">
+          <div class="s-logo-row">
+            <div class="s-icon">DD</div>
+            <div class="s-name">Debt Decoder</div>
+          </div>
+          <div class="s-sub">NJIT Financial Aid Companion</div>
+        </div>
+
+        <nav class="s-nav">
+          <span class="s-section-label">My Aid</span>
+
+          <button class="nav-btn active" data-page="dashboard">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+              />
+            </svg>
+            Dashboard
+          </button>
+
+          <button class="nav-btn" data-page="redflags">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+            Red Flags
+            <span class="nav-badge">3</span>
+          </button>
+
+          <button class="nav-btn" data-page="terms">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              />
+            </svg>
+            Term Decoder
+          </button>
+
+          <button class="nav-btn" data-page="chat">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+              />
+            </svg>
+            Ask Claude
+          </button>
+
+          <span class="s-section-label">Tools</span>
+
+          <button class="nav-btn" data-page="compare">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+              />
+            </svg>
+            Compare Schools
+          </button>
+
+          <button class="nav-btn" data-page="appeal">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+              />
+            </svg>
+            Appeal Letter
+          </button>
+
+          <button class="nav-btn" data-page="capcalc">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+              />
+            </svg>
+            Cap Calculator
+          </button>
+
+          <span class="s-section-label">NJIT Specific</span>
+
+          <button class="nav-btn" data-page="visa">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"
+              />
+            </svg>
+            Visa & Tuition
+          </button>
+
+          <button class="nav-btn" data-page="emergency">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              />
+            </svg>
+            Crisis Help
+          </button>
+        </nav>
+
+        <div class="s-footer">
+          <div class="s-user">
+            <div class="s-user-dot"></div>
+            <div>
+              <div class="s-user-label">Logged in as</div>
+              <div class="s-user-name">NJIT Student</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ── MAIN CONTENT ────────────────────────────────────────── -->
+      <main class="main">
+        <!-- DASHBOARD -->
+        <div class="page active" id="page-dashboard">
+          <div class="page-header">
+            <h1>Your Financial Aid Dashboard</h1>
+            <p>
+              NJIT Fall 2025 · Upload your documents or load the sample to get
+              started.
+            </p>
+          </div>
+
+          <div id="upload-section">
+            <div
+              class="upload-zone"
+              id="upload-zone"
+              onclick="document.getElementById('file-input').click()"
+            >
+              <input
+                type="file"
+                id="file-input"
+                accept=".pdf,.jpg,.jpeg,.png,.txt,.md,.docx,.doc"
+                style="display: none"
+              />
+              <div class="upload-icon">
+                <svg
+                  width="26"
+                  height="26"
+                  fill="none"
+                  stroke="#CC0000"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  />
+                </svg>
+              </div>
+              <div class="upload-title">
+                Upload your NJIT financial aid documents
+              </div>
+              <div class="upload-sub">
+                Award letters, scholarship docs, tuition bills, NJ state aid,
+                loan offers — we'll read and decode them
+              </div>
+              <div class="upload-types">
+                <span class="upload-type">PDF</span>
+                <span class="upload-type">JPG / PNG</span>
+                <span class="upload-type">DOCX</span>
+                <span class="upload-type">TXT</span>
+              </div>
+              <div class="btn-row">
+                <button
+                  class="btn primary"
+                  onclick="
+                    event.stopPropagation();
+                    document.getElementById('file-input').click();
+                  "
+                >
+                  Upload Document
+                </button>
+                <button
+                  class="btn secondary"
+                  id="load-sample-btn"
+                  onclick="event.stopPropagation()"
+                >
+                  Load Sample ↗
+                </button>
+              </div>
+            </div>
+
+            <!-- Analyzing state -->
+            <div id="analyzing" style="display: none" class="card">
+              <div
+                style="font-size: 13px; color: var(--g600); margin-bottom: 4px"
+              >
+                Analyzing
+                <strong id="analyzing-filename">your document</strong> with
+                AI...
+              </div>
+              <div
+                style="font-size: 12px; color: var(--g400); margin-bottom: 8px"
+              >
+                Checking validity and extracting financial data
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+              </div>
+            </div>
+
+            <!-- Invalid document state -->
+            <div id="invalid-doc" style="display: none">
+              <div class="flag red" style="margin-bottom: 12px">
+                <div class="flag-dot"></div>
+                <div>
+                  <div class="flag-title">
+                    Not a valid financial aid document
+                  </div>
+                  <div class="flag-body" id="invalid-reason">
+                    This doesn't appear to be a financial aid document.
+                  </div>
+                </div>
+              </div>
+              <div style="text-align: center">
+                <button
+                  class="btn secondary"
+                  onclick="document.getElementById('file-input').click()"
+                >
+                  Try a different file
+                </button>
+                <button
+                  class="btn ghost"
+                  id="load-sample-btn-2"
+                  style="margin-left: 8px"
+                >
+                  Load Sample instead ↗
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="demo-section" style="display: none">
+            <div class="metrics">
+              <div class="metric">
+                <div class="metric-label">Total Cost of Attendance</div>
+                <div class="metric-value" id="metric-total">$34,200</div>
+                <div class="metric-note">Per academic year</div>
+              </div>
+              <div class="metric">
+                <div class="metric-label">Free Aid</div>
+                <div class="metric-value green" id="metric-free">$18,500</div>
+                <div class="metric-note">Grants + scholarships</div>
+              </div>
+              <div class="metric">
+                <div class="metric-label">Your Remaining Cost</div>
+                <div class="metric-value red" id="metric-owed">$15,700</div>
+                <div class="metric-note">Loans + out-of-pocket</div>
+              </div>
+            </div>
+
+            <div class="score-card">
+              <div class="ring-wrap">
+                <svg width="90" height="90" viewBox="0 0 90 90">
+                  <circle
+                    cx="45"
+                    cy="45"
+                    r="36"
+                    fill="none"
+                    stroke="#E5E7EB"
+                    stroke-width="9"
+                  />
+                  <circle
+                    id="score-ring-circle"
+                    cx="45"
+                    cy="45"
+                    r="36"
+                    fill="none"
+                    stroke="#D97706"
+                    stroke-width="9"
+                    stroke-dasharray="226.19"
+                    stroke-dashoffset="83.7"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <div class="ring-number" id="score-number">63</div>
+              </div>
+              <div>
+                <div class="score-tag">Package Health Score</div>
+                <div class="score-val" id="score-val">63 / 100 — Caution</div>
+                <div class="score-desc" id="score-desc">
+                  Your free aid is strong but your private loan carries serious
+                  risks.
+                  <span
+                    style="color: var(--red); cursor: pointer"
+                    onclick="goTo('redflags')"
+                    >View red flags →</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <span class="section-label">Your Documents Decoded</span>
+            <div id="doc-cards"></div>
+
+            <span class="section-label">What to do right now</span>
+            <div class="card">
+              <div id="action-items"></div>
+            </div>
+
+            <div style="margin-top: 12px">
+              <button
+                class="btn ghost"
+                onclick="
+                  document.getElementById('upload-section').style.display =
+                    'block';
+                  document.getElementById('demo-section').style.display =
+                    'none';
+                  document.getElementById('invalid-doc').style.display = 'none';
+                "
+              >
+                ← Upload a different document
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RED FLAGS -->
+        <div class="page" id="page-redflags">
+          <div class="page-header">
+            <h1>Red Flag Scanner</h1>
+            <p>
+              Hidden risks in your documents — with real dollar impact, not just
+              warnings.
+            </p>
+          </div>
+          <div class="score-card">
+            <div class="ring-wrap">
+              <svg width="90" height="90" viewBox="0 0 90 90">
+                <circle
+                  cx="45"
+                  cy="45"
+                  r="36"
+                  fill="none"
+                  stroke="#E5E7EB"
+                  stroke-width="9"
+                />
+                <circle
+                  cx="45"
+                  cy="45"
+                  r="36"
+                  fill="none"
+                  stroke="#D97706"
+                  stroke-width="9"
+                  stroke-dasharray="226.19"
+                  stroke-dashoffset="83.7"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <div class="ring-number">63</div>
+            </div>
+            <div>
+              <div class="score-tag">Package Health Score</div>
+              <div class="score-val">3 critical · 3 warnings · 2 good</div>
+              <div class="score-desc">
+                Address red flags first — each one costs real money if ignored.
+              </div>
+            </div>
+          </div>
+
+          <div id="red-flags-dynamic">
+            <span class="section-label">Critical — address immediately</span>
+            <div class="flag red">
+              <div class="flag-dot"></div>
+              <div>
+                <div class="flag-title">
+                  Variable interest rate — private loan
+                </div>
+                <div class="flag-body">
+                  Your rate ranges 6.99–14.5%. At the ceiling, monthly payments
+                  jump from $93 to $150 — an extra $684/year. Always model the
+                  worst case, not the starting rate.
+                </div>
+              </div>
+            </div>
+            <div class="flag red">
+              <div class="flag-dot"></div>
+              <div>
+                <div class="flag-title">
+                  No grace period — payments start at graduation
+                </div>
+                <div class="flag-body">
+                  Federal loans give 6 months. Your Sallie Mae loan does not.
+                  You need income before your last semester ends or you're
+                  immediately at default risk.
+                </div>
+              </div>
+            </div>
+            <div class="flag red">
+              <div class="flag-dot"></div>
+              <div>
+                <div class="flag-title">
+                  Interest capitalizing right now — ~$2,800 at graduation
+                </div>
+                <div class="flag-body">
+                  Your private loan accrues ~$1.53/day. In 4 years ~$2,800 gets
+                  added to your $8,000 principal. You'll pay interest on $10,800
+                  instead of $8,000 for 10 years — roughly $800 extra total.
+                </div>
+              </div>
+            </div>
+            <span class="section-label">Warnings — monitor closely</span>
+            <div class="flag amber">
+              <div class="flag-dot"></div>
+              <div>
+                <div class="flag-title">
+                  Scholarship GPA floor — 3.5 minimum
+                </div>
+                <div class="flag-body">
+                  Dropping to 3.4 at any semester end means losing $12,000 for
+                  that year. NJIT CS and engineering courses commonly cause
+                  freshman GPA dips. Know the appeal process before you need it.
+                </div>
+              </div>
+            </div>
+            <div class="flag amber">
+              <div class="flag-dot"></div>
+              <div>
+                <div class="flag-title">
+                  15 credits/semester required — above standard load
+                </div>
+                <div class="flag-body">
+                  If you drop a class for any reason you risk losing the
+                  scholarship. Ask financial aid if a hardship waiver exists
+                  before this happens.
+                </div>
+              </div>
+            </div>
+            <div class="flag amber">
+              <div class="flag-dot"></div>
+              <div>
+                <div class="flag-title">
+                  Auto-debit discount — can vanish permanently
+                </div>
+                <div class="flag-body">
+                  0.25% rate reduction for auto-pay. If a single payment
+                  bounces, many lenders remove it forever. Use a dedicated
+                  account with always-sufficient funds.
+                </div>
+              </div>
+            </div>
+            <span class="section-label">You're in good shape here</span>
+            <div class="flag green">
+              <div class="flag-dot"></div>
+              <div>
+                <div class="flag-title">
+                  Federal subsidized loan — best type available
+                </div>
+                <div class="flag-body">
+                  Fixed rate, government pays interest while in school, access
+                  to income-driven repayment and forgiveness programs after
+                  graduation.
+                </div>
+              </div>
+            </div>
+            <div class="flag green">
+              <div class="flag-dot"></div>
+              <div>
+                <div class="flag-title">
+                  Scholarship stacks with federal aid — no clawback
+                </div>
+                <div class="flag-body">
+                  Your Highlander Scholarship doesn't reduce your federal aid
+                  eligibility. You receive both without any penalty.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TERM DECODER -->
+        <div class="page" id="page-terms">
+          <div class="page-header">
+            <h1>Term Decoder</h1>
+            <p>
+              Every financial term in your documents — plain English, with
+              context for your NJIT situation. Click any term to expand.
+            </p>
+          </div>
+          <div class="terms-grid" id="terms-grid"></div>
+        </div>
+
+        <!-- ASK CLAUDE -->
+        <div class="page" id="page-chat">
+          <div class="page-header">
+            <h1>Ask Claude</h1>
+            <p>
+              Your AI financial advisor — powered by Claude, with full context
+              of your NJIT documents.
+            </p>
+          </div>
+          <div class="chat-container">
+            <div class="chat-header">
+              <div class="chat-avatar">AI</div>
+              <div>
+                <div class="chat-name">Debt Decoder AI</div>
+                <div class="chat-status">
+                  <div class="status-dot"></div>
+                  Online — NJIT documents loaded
+                </div>
+              </div>
+            </div>
+            <div class="chat-messages" id="chat-log">
+              <div class="message bot">
+                Hi! I've reviewed your NJIT financial aid documents — Highlander
+                Scholarship, TAG Grant, federal subsidized loan, and Sallie Mae
+                private loan. Ask me anything about terms, risks, specific
+                scenarios, or what you should do next.
+              </div>
+            </div>
+            <div class="chat-suggestions" id="chat-suggestions"></div>
+            <div class="chat-input-row">
+              <input
+                class="chat-input"
+                id="chat-input"
+                type="text"
+                placeholder="Ask about your loans, scholarship, NJIT programs, visa status..."
+              />
+              <button class="chat-send" id="chat-send-btn" onclick="sendChat()">
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMPARE SCHOOLS -->
+        <div class="page" id="page-compare">
+          <div class="page-header">
+            <h1>Compare Schools</h1>
+            <p>
+              True 4-year cost — not year-one estimates. What you'll actually
+              owe over your entire degree.
+            </p>
+          </div>
+          <div class="school-grid">
+            <div class="school-card winner">
+              <div class="winner-badge">Best value for your profile</div>
+              <div class="school-name">NJIT</div>
+              <div class="school-type">Public university — in-state NJ</div>
+              <div class="school-cost green">
+                $15,700<span style="font-size: 15px; color: var(--g400)"
+                  >/yr</span
+                >
+              </div>
+              <div class="school-cost-note">True net cost after all aid</div>
+              <div class="data-row">
+                <span class="data-row-label" style="font-size: 12px"
+                  >Scholarship</span
+                ><span class="data-row-value" style="font-size: 12px"
+                  >$12,000 renewable</span
+                >
+              </div>
+              <div class="data-row">
+                <span class="data-row-label" style="font-size: 12px"
+                  >4-year debt</span
+                ><span class="data-row-value green" style="font-size: 12px"
+                  >~$46,000</span
+                >
+              </div>
+              <div class="data-row">
+                <span class="data-row-label" style="font-size: 12px"
+                  >Scholarship risk</span
+                ><span class="data-row-value amber" style="font-size: 12px"
+                  >GPA 3.5 required</span
+                >
+              </div>
+            </div>
+            <div class="school-card">
+              <div style="height: 22px"></div>
+              <div class="school-name">Stevens Tech</div>
+              <div class="school-type">Private university — Hoboken, NJ</div>
+              <div class="school-cost red">
+                $28,400<span style="font-size: 15px; color: var(--g400)"
+                  >/yr</span
+                >
+              </div>
+              <div class="school-cost-note">True net cost after all aid</div>
+              <div class="data-row">
+                <span class="data-row-label" style="font-size: 12px"
+                  >Scholarship</span
+                ><span class="data-row-value red" style="font-size: 12px"
+                  >$8,000 — year 1 only</span
+                >
+              </div>
+              <div class="data-row">
+                <span class="data-row-label" style="font-size: 12px"
+                  >4-year debt</span
+                ><span class="data-row-value red" style="font-size: 12px"
+                  >~$103,000</span
+                >
+              </div>
+              <div class="data-row">
+                <span class="data-row-label" style="font-size: 12px"
+                  >Scholarship risk</span
+                ><span class="data-row-value red" style="font-size: 12px"
+                  >One-time — gone year 2</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="flag amber">
+            <div class="flag-dot"></div>
+            <div>
+              <div class="flag-title">
+                Stevens' scholarship disappears after year 1
+              </div>
+              <div class="flag-body">
+                Their $8,000 is a one-time grant. Year 2 your Stevens cost jumps
+                to $36,400/yr. Over 4 years you'd graduate with $57,000 more in
+                debt — roughly $600/month more in payments for 10 years.
+              </div>
+            </div>
+          </div>
+          <div class="flag blue">
+            <div class="flag-dot"></div>
+            <div>
+              <div class="flag-title">
+                Profile: CS major · ~$85k expected starting salary · NJ resident
+              </div>
+              <div class="flag-body">
+                NJIT CS graduates earn median starting salaries well above the
+                loan burden threshold for this package, making NJIT a
+                financially strong choice.
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 16px">
+            <button class="btn primary" onclick="goTo('appeal')">
+              Generate appeal letter to Stevens →
+            </button>
+          </div>
+        </div>
+
+        <!-- APPEAL LETTER -->
+        <div class="page" id="page-appeal">
+          <div class="page-header">
+            <h1>Appeal Letter Generator</h1>
+            <p>
+              Turn your better offer into leverage. Students with financially
+              savvy families do this routinely — now you can too.
+            </p>
+          </div>
+          <div class="flag blue">
+            <div class="flag-dot"></div>
+            <div>
+              <div class="flag-title">
+                You can negotiate financial aid — most students don't know this
+              </div>
+              <div class="flag-body">
+                Financial aid offers are not final. With a competing offer, you
+                can ask the school with the weaker package to match it. Schools
+                grant these requests regularly. Edit the letter below and send
+                it.
+              </div>
+            </div>
+          </div>
+          <div class="card" style="margin-bottom: 16px">
+            <div class="card-title">Your leverage</div>
+            <div class="data-row">
+              <span class="data-row-label">NJIT net cost</span
+              ><span class="data-row-value green">$15,700/yr</span>
+            </div>
+            <div class="data-row">
+              <span class="data-row-label">Stevens net cost</span
+              ><span class="data-row-value red">$28,400/yr</span>
+            </div>
+            <div class="data-row">
+              <span class="data-row-label">4-year debt gap</span
+              ><span class="data-row-value red">~$57,000</span>
+            </div>
+          </div>
+          <span class="section-label"
+            >Edit and send — this letter is yours</span
+          >
+          <textarea class="letter-textarea" id="appeal-letter"></textarea>
+          <div style="display: flex; gap: 8px">
+            <button class="btn primary" id="copy-btn" onclick="copyLetter()">
+              Copy Letter
+            </button>
+            <button class="btn secondary" onclick="resetLetter()">Reset</button>
+          </div>
+        </div>
+
+        <!-- CAP CALCULATOR -->
+        <div class="page" id="page-capcalc">
+          <div class="page-header">
+            <h1>Capitalization Calculator</h1>
+            <p>
+              See exactly what interest capitalization will cost you — before it
+              happens.
+            </p>
+          </div>
+          <div class="flag red">
+            <div class="flag-dot"></div>
+            <div>
+              <div class="flag-title">What is capitalization?</div>
+              <div class="flag-body">
+                When you don't pay interest during school, it accumulates. At
+                repayment start, all unpaid interest gets added to your
+                principal — and you pay interest on that larger number for the
+                full term.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Adjust your loan details</div>
+            <div class="calc-row">
+              <span class="calc-label">Loan amount</span>
+              <input
+                type="range"
+                class="calc-slider"
+                id="slider-loan"
+                min="1000"
+                max="50000"
+                step="500"
+                value="8000"
+                oninput="updateCap()"
+              />
+              <span class="calc-value" id="out-loan">$8,000</span>
+            </div>
+            <div class="calc-row">
+              <span class="calc-label">Interest rate</span>
+              <input
+                type="range"
+                class="calc-slider"
+                id="slider-rate"
+                min="3"
+                max="15"
+                step="0.5"
+                value="7"
+                oninput="updateCap()"
+              />
+              <span class="calc-value" id="out-rate">7.0%</span>
+            </div>
+            <div class="calc-row">
+              <span class="calc-label">Years in school</span>
+              <input
+                type="range"
+                class="calc-slider"
+                id="slider-years"
+                min="1"
+                max="6"
+                step="1"
+                value="4"
+                oninput="updateCap()"
+              />
+              <span class="calc-value" id="out-years">4 years</span>
+            </div>
+            <div class="calc-result">
+              <div class="calc-result-row">
+                <span style="color: var(--g500)">Original loan amount</span
+                ><span id="cr-original" style="font-weight: 500">$8,000</span>
+              </div>
+              <div class="calc-result-row">
+                <span style="color: var(--g500)"
+                  >Interest accrued during school</span
+                ><span
+                  id="cr-accrued"
+                  style="font-weight: 500; color: var(--red)"
+                  >+$2,240</span
+                >
+              </div>
+              <div class="calc-result-row">
+                <span style="color: var(--g500)"
+                  >Monthly interest cost now (if paid)</span
+                ><span id="cr-monthly" style="font-weight: 500">~$47/mo</span>
+              </div>
+              <div class="calc-result-total">
+                <span>Capitalized balance at repayment</span
+                ><span id="cr-total">$10,240</span>
+              </div>
+            </div>
+            <div class="cap-insight" id="cap-insight">
+              That extra <strong>$2,240</strong> doesn't sit still — you now pay
+              7.0% on <strong>$10,240</strong> instead of $8,000. Over 10 years
+              this costs roughly <strong>$784</strong> more than paying interest
+              during school (~$47/month).
+            </div>
+          </div>
+          <div class="flag green">
+            <div class="flag-dot"></div>
+            <div>
+              <div class="flag-title" id="cap-green-title">
+                How to fight it: pay ~$47/month now
+              </div>
+              <div class="flag-body" id="cap-green-body">
+                Paying just the monthly interest during school prevents $2,240
+                from capitalizing. Your federal subsidized loan avoids this
+                entirely — the government pays that interest. Focus on the
+                private loan.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VISA -->
+        <div class="page" id="page-visa">
+          <div class="page-header">
+            <h1>Visa & Tuition Classification</h1>
+            <p>
+              For NJIT students on visa transitions — a $16,000/year question
+              worth fighting for.
+            </p>
+          </div>
+          <div class="flag red">
+            <div class="flag-dot"></div>
+            <div>
+              <div class="flag-title">
+                In-state vs. international tuition — $16,000/year at NJIT
+              </div>
+              <div class="flag-body">
+                If your visa status changes (e.g. H-1B dependent to F-1), you
+                risk reclassification as international — unless you proactively
+                submit NJ domicile documentation. Over 4 years that's $64,000.
+                Many students lose in-state status simply because nobody told
+                them to file.
+              </div>
+            </div>
+          </div>
+          <div class="flag blue">
+            <div class="flag-dot"></div>
+            <div>
+              <div class="flag-title">
+                F-1 students: you may still qualify for in-state rates
+              </div>
+              <div class="flag-body">
+                F-1 status alone doesn't automatically disqualify you from
+                in-state tuition in NJ. If you or your parents have established
+                NJ domicile — not just residence — you can file a classification
+                appeal.
+              </div>
+            </div>
+          </div>
+          <span class="section-label"
+            >Document checklist — in-state tuition appeal</span
+          >
+          <div class="card">
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <div>
+                <div class="step-title">Proof of NJ domicile</div>
+                <div class="step-body">
+                  NJ driver's license or state ID, lease or mortgage in your
+                  name (or parent's if dependent), showing this is your primary
+                  home — not just a mailing address.
+                </div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div>
+                <div class="step-title">
+                  12-month continuous NJ residency evidence
+                </div>
+                <div class="step-body">
+                  Utility bills, bank statements, or employer letters showing a
+                  consistent NJ address for 12+ consecutive months before the
+                  semester of your appeal.
+                </div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div>
+                <div class="step-title">
+                  Intent to remain in NJ documentation
+                </div>
+                <div class="step-body">
+                  NJ voter registration card, NJ state tax returns (Form
+                  NJ-1040), or a signed domicile declaration form from NJIT's
+                  Registrar's Office.
+                </div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">4</div>
+              <div>
+                <div class="step-title">Complete visa status documentation</div>
+                <div class="step-body">
+                  Current I-20, I-94 arrival/departure record, all USCIS
+                  approval notices for current and previous visa statuses, and
+                  passport biographic page.
+                </div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">5</div>
+              <div>
+                <div class="step-title">
+                  Submit to NJIT Registrar — before semester billing deadline
+                </div>
+                <div class="step-body">
+                  Email registrar@njit.edu · Subject: "In-State Tuition
+                  Classification Appeal — [Name] — [NJIT ID]". Attach all docs.
+                  Follow up in 5 business days. Late submissions are almost
+                  never accepted.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flag amber">
+            <div class="flag-dot"></div>
+            <div>
+              <div class="flag-title">
+                Health insurance waiver — 2-week window only
+              </div>
+              <div class="flag-body">
+                NJIT auto-enrolls international students in university health
+                insurance (~$2,500/yr). If you have comparable coverage, you can
+                waive it — but only in the first 2 weeks of each semester.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRISIS HELP -->
+        <div class="page" id="page-emergency">
+          <div class="page-header">
+            <h1>Crisis Help</h1>
+            <p>
+              Real NJIT resources, real contact info. You do not have to figure
+              this out alone.
+            </p>
+          </div>
+          <div class="crisis-banner">
+            <div class="crisis-title">In financial crisis right now?</div>
+            <div class="crisis-sub">
+              NJIT has people whose entire job is to help you through exactly
+              this. Use the resources below — none require you to have it
+              figured out first.
+            </div>
+          </div>
+          <div class="card">
+            <div class="resource-item">
+              <div>
+                <div class="resource-name">
+                  NJIT Emergency Financial Aid Fund
+                </div>
+                <div class="resource-desc">
+                  One-time grants for sudden hardship — job loss, family
+                  emergency, medical crisis
+                </div>
+              </div>
+              <div class="resource-contact">financialaid@njit.edu</div>
+            </div>
+            <div class="resource-item">
+              <div>
+                <div class="resource-name">Highlander Food Pantry</div>
+                <div class="resource-desc">
+                  Free groceries — no appointment, no questions, no judgment
+                </div>
+              </div>
+              <div class="resource-contact">Campus Center Rm 235</div>
+            </div>
+            <div class="resource-item">
+              <div>
+                <div class="resource-name">Dean of Students Office</div>
+                <div class="resource-desc">
+                  Housing crisis, unexpected hardship, family emergency — they
+                  advocate for you
+                </div>
+              </div>
+              <div class="resource-contact">973-596-3466</div>
+            </div>
+            <div class="resource-item">
+              <div>
+                <div class="resource-name">
+                  SAP Appeal — Lost Aid Due to Grades
+                </div>
+                <div class="resource-desc">
+                  Aid suspension is appealable. Document your hardship and file
+                  immediately.
+                </div>
+              </div>
+              <div class="resource-contact">financialaid@njit.edu</div>
+            </div>
+            <div class="resource-item">
+              <div>
+                <div class="resource-name">EOF Emergency Support</div>
+                <div class="resource-desc">
+                  First-gen EOF students have additional emergency funding
+                  separate from general aid
+                </div>
+              </div>
+              <div class="resource-contact">eof@njit.edu</div>
+            </div>
+            <div class="resource-item">
+              <div>
+                <div class="resource-name">NJIT Counseling Center</div>
+                <div class="resource-desc">
+                  Financial stress is real stress. Free confidential sessions
+                  for all students.
+                </div>
+              </div>
+              <div class="resource-contact">973-596-3414</div>
+            </div>
+          </div>
+          <span class="section-label">Before you withdraw from a class</span>
+          <div class="flag red">
+            <div class="flag-dot"></div>
+            <div>
+              <div class="flag-title">
+                Withdrawing triggers a chain reaction you can't undo
+              </div>
+              <div class="flag-body">
+                Dropping below full-time can simultaneously affect your
+                scholarship, loan disbursement, health insurance, F-1 visa
+                status, and SAP standing — all at once. Talk to financial aid
+                BEFORE withdrawing, not after.
+              </div>
+            </div>
+          </div>
+          <div class="flag amber">
+            <div class="flag-dot"></div>
+            <div>
+              <div class="flag-title">Your refund check is not free money</div>
+              <div class="flag-body">
+                When aid exceeds tuition, NJIT sends a refund. Loan portions
+                must be repaid with interest. Budget it across the full semester
+                before spending any of it.
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+      document
+        .getElementById("load-sample-btn-2")
+        .addEventListener("click", loadSampleData);
+    </script>
+  </body>
+</html>
