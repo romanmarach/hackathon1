@@ -601,107 +601,118 @@
         <!-- COMPARE SCHOOLS -->
         <div class="page" id="page-compare">
           <div class="page-header">
-            <h1>Compare Schools</h1>
+            <h1>AI School Comparison</h1>
             <p>
-              True 4-year cost — not year-one estimates. What you'll actually
-              owe over your entire degree.
+              Upload documents from up to 5 schools. AI extracts real costs,
+              scores academic quality, and finds your best financial fit.
             </p>
           </div>
-          <div class="school-grid">
-            <div class="school-card winner">
-              <div class="winner-badge">Best value for your profile</div>
-              <div class="school-name">NJIT</div>
-              <div class="school-type">Public university — in-state NJ</div>
-              <div class="school-cost green">
-                $15,700<span style="font-size: 15px; color: var(--g400)"
-                  >/yr</span
+
+          <!-- SETUP FORM -->
+          <div id="compare-setup">
+            <span class="section-label">Step 1 — Your Financial Profile</span>
+            <div class="card">
+              <div class="cmp-field">
+                <label class="cmp-label"
+                  >Available savings (total, one-time)</label
                 >
+                <div class="cmp-money-wrap">
+                  <span class="cmp-dollar">$</span>
+                  <input
+                    type="number"
+                    id="cmp-savings"
+                    class="cmp-money-input"
+                    placeholder="0"
+                    min="0"
+                    value="0"
+                  />
+                </div>
               </div>
-              <div class="school-cost-note">True net cost after all aid</div>
-              <div class="data-row">
-                <span class="data-row-label" style="font-size: 12px"
-                  >Scholarship</span
-                ><span class="data-row-value" style="font-size: 12px"
-                  >$12,000 renewable</span
+              <div class="cmp-field">
+                <label class="cmp-label"
+                  >Outside scholarships already awarded (per year)</label
                 >
+                <div class="cmp-money-wrap">
+                  <span class="cmp-dollar">$</span>
+                  <input
+                    type="number"
+                    id="cmp-scholarships"
+                    class="cmp-money-input"
+                    placeholder="0"
+                    min="0"
+                    value="0"
+                  />
+                </div>
               </div>
-              <div class="data-row">
-                <span class="data-row-label" style="font-size: 12px"
-                  >4-year debt</span
-                ><span class="data-row-value green" style="font-size: 12px"
-                  >~$46,000</span
-                >
+              <div class="cmp-field">
+                <label class="cmp-label">Intended major</label>
+                <input
+                  type="text"
+                  id="cmp-major"
+                  class="cmp-text-input"
+                  placeholder="e.g. Computer Science"
+                />
               </div>
-              <div class="data-row">
-                <span class="data-row-label" style="font-size: 12px"
-                  >Scholarship risk</span
-                ><span class="data-row-value amber" style="font-size: 12px"
-                  >GPA 3.5 required</span
-                >
-              </div>
-            </div>
-            <div class="school-card">
-              <div style="height: 22px"></div>
-              <div class="school-name">Stevens Tech</div>
-              <div class="school-type">Private university — Hoboken, NJ</div>
-              <div class="school-cost red">
-                $28,400<span style="font-size: 15px; color: var(--g400)"
-                  >/yr</span
-                >
-              </div>
-              <div class="school-cost-note">True net cost after all aid</div>
-              <div class="data-row">
-                <span class="data-row-label" style="font-size: 12px"
-                  >Scholarship</span
-                ><span class="data-row-value red" style="font-size: 12px"
-                  >$8,000 — year 1 only</span
-                >
-              </div>
-              <div class="data-row">
-                <span class="data-row-label" style="font-size: 12px"
-                  >4-year debt</span
-                ><span class="data-row-value red" style="font-size: 12px"
-                  >~$103,000</span
-                >
-              </div>
-              <div class="data-row">
-                <span class="data-row-label" style="font-size: 12px"
-                  >Scholarship risk</span
-                ><span class="data-row-value red" style="font-size: 12px"
-                  >One-time — gone year 2</span
-                >
+              <div class="cmp-field" style="margin-bottom: 0">
+                <label class="cmp-label">State of residence</label>
+                <input
+                  type="text"
+                  id="cmp-state"
+                  class="cmp-text-input"
+                  placeholder="e.g. New Jersey"
+                />
               </div>
             </div>
-          </div>
-          <div class="flag amber">
-            <div class="flag-dot"></div>
+
+            <span class="section-label"
+              >Step 2 — Upload School Documents (min. 2 schools)</span
+            >
+            <div id="school-slots"></div>
+            <button
+              class="btn secondary"
+              id="add-school-btn"
+              onclick="addSchoolSlot()"
+              style="margin-bottom: 1rem"
+            >
+              + Add Another School
+            </button>
+
             <div>
-              <div class="flag-title">
-                Stevens' scholarship disappears after year 1
-              </div>
-              <div class="flag-body">
-                Their $8,000 is a one-time grant. Year 2 your Stevens cost jumps
-                to $36,400/yr. Over 4 years you'd graduate with $57,000 more in
-                debt — roughly $600/month more in payments for 10 years.
-              </div>
+              <button
+                class="btn primary"
+                id="compare-run-btn"
+                onclick="runComparison()"
+              >
+                Analyze Best Fit →
+              </button>
             </div>
           </div>
-          <div class="flag blue">
-            <div class="flag-dot"></div>
-            <div>
-              <div class="flag-title">
-                Profile: CS major · ~$85k expected starting salary · NJ resident
-              </div>
-              <div class="flag-body">
-                NJIT CS graduates earn median starting salaries well above the
-                loan burden threshold for this package, making NJIT a
-                financially strong choice.
-              </div>
+
+          <!-- ANALYZING STATE -->
+          <div id="compare-analyzing" style="display: none" class="card">
+            <div
+              style="font-size: 13px; color: var(--g600); margin-bottom: 4px"
+            >
+              Analyzing
+              <strong id="compare-school-count">your schools</strong> with
+              AI...
+            </div>
+            <div
+              style="font-size: 12px; color: var(--g400); margin-bottom: 8px"
+            >
+              Extracting costs · Scoring quality · Calculating best fit
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="compare-progress-fill"></div>
             </div>
           </div>
-          <div style="margin-top: 16px">
-            <button class="btn primary" onclick="goTo('appeal')">
-              Generate appeal letter to Stevens →
+
+          <!-- RESULTS -->
+          <div id="compare-results" style="display: none"></div>
+
+          <div id="compare-reset-row" style="display: none; margin-top: 12px">
+            <button class="btn ghost" onclick="resetComparison()">
+              ← Compare different schools
             </button>
           </div>
         </div>

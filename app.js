@@ -740,6 +740,10 @@ function buildTerms() {
 
 buildTerms();
 
+// Pre-populate 2 default school slots for the compare page
+addSchoolSlot();
+addSchoolSlot();
+
 // ── CHAT ─────────────────────────────────────────────────────────
 
 const SYSTEM_PROMPT = `You are Debt Decoder AI, a financial aid advisor built specifically for NJIT (New Jersey Institute of Technology) students. You have reviewed the student's financial aid documents. Be direct, specific, and use plain language. Quantify in real dollars whenever possible. Be an advocate for the student. Keep responses to 3-5 sentences. Know about: NJIT programs (Highlander Grant, EOF, food pantry, emergency fund), NJ state aid (TAG, EOF), NJIT co-op program impacts, visa transitions and tuition classification appeals, SAP rules. Contacts: financialaid@njit.edu, eof@njit.edu, registrar@njit.edu, 973-596-3466 (Dean of Students).`;
@@ -881,6 +885,418 @@ function resetLetter() {
 }
 
 // ── CAPITALIZATION CALCULATOR ─────────────────────────────────────
+
+// ── SCHOOL COMPARISON ─────────────────────────────────────────
+
+const COMPARE_SYSTEM = `You are an AI Financial Counselor and Academic Auditor. Your task is to ingest multiple institutional documents and compare them against a specific student's financial profile to determine the "Best Fit" based on quality and affordability.
+
+STRICT LOGIC RULES:
+- Extract data ONLY from the provided documents. Do not fill gaps with your prior knowledge.
+- If a specific metric is absent from a document, label it exactly as [DATA MISSING].
+- Never estimate or guess financial figures. Use 0 only when a document explicitly states zero.
+
+STEP 1 — EXTRACTION: For each school document, find:
+  • Institution name
+  • Annual Tuition & Fees
+  • Annual Room & Board
+  • Average or offered annual merit-based aid
+  • Total annual Cost of Attendance
+
+STEP 2 — FINANCIAL MATH:
+  • gross_4yr = total_annual_CoA × 4
+  • student_reduction = one_time_savings + (annual_outside_scholarships × 4) + (merit_aid × 4)
+  • total_net_cost = gross_4yr − student_reduction
+  • debt_projection = total_net_cost
+
+STEP 3 — QUALITY SCORE (0–100 points):
+  Graduation Rate component (0–40 pts):
+    ≥90% → 40 pts | 80–89% → 32 pts | 70–79% → 22 pts | <70% → 10 pts | [DATA MISSING] → 0 pts
+  Post-grad Median Salary component (0–30 pts):
+    ≥$90k → 30 pts | $70–89k → 24 pts | $55–69k → 16 pts | <$55k → 6 pts | [DATA MISSING] → 0 pts
+  Student-to-Faculty Ratio component (0–30 pts):
+    ≤10:1 → 30 pts | 11–15:1 → 22 pts | 16–20:1 → 12 pts | >20:1 → 5 pts | [DATA MISSING] → 0 pts
+  quality_score = sum of three components
+
+STEP 4 — DOLLAR-PER-QUALITY:
+  dollar_per_quality = total_net_cost / quality_score
+  If quality_score = 0, set dollar_per_quality = 999999
+
+STEP 5 — FIT STATUS (assign exactly one per school):
+  "Best Fit"         — lowest dollar_per_quality across all schools
+  "Strong Contender" — within 25% of Best Fit's dollar_per_quality
+  "Financial Risk"   — debt_projection > $80,000
+  "Poor Fit"         — high cost relative to quality score
+
+Respond ONLY with valid JSON — no markdown fences, no text outside the JSON:
+{
+  "schools": [
+    {
+      "school_name": "string",
+      "annual_cost_breakdown": {
+        "tuition_fees": <number or "[DATA MISSING]">,
+        "room_board": <number or "[DATA MISSING]">,
+        "merit_aid": <number or "[DATA MISSING]">,
+        "net_annual": <number>
+      },
+      "total_net_cost": <number>,
+      "quality_score": <number 0–100>,
+      "quality_breakdown": {
+        "graduation_rate": "XX% → N pts" or "[DATA MISSING] → 0 pts",
+        "median_salary": "$XXk → N pts" or "[DATA MISSING] → 0 pts",
+        "student_faculty_ratio": "XX:1 → N pts" or "[DATA MISSING] → 0 pts"
+      },
+      "dollar_per_quality": <number>,
+      "debt_projection": <number>,
+      "fit_status": "Best Fit | Strong Contender | Financial Risk | Poor Fit"
+    }
+  ],
+  "top_recommendation": "school name",
+  "narrative": "max 100 words — why this school is the best fit for THIS specific student",
+  "comparison_notes": "caveats about missing data, document issues, or important warnings"
+}`;
+
+let schoolSlotCount = 0;
+let schoolSlotIdSeq = 0;
+
+function addSchoolSlot() {
+  if (schoolSlotCount >= 5) return;
+  schoolSlotCount++;
+  schoolSlotIdSeq++;
+  const id = schoolSlotIdSeq;
+
+  const container = document.getElementById("school-slots");
+  const slot = document.createElement("div");
+  slot.className = "school-slot";
+  slot.id = `slot-${id}`;
+  slot.dataset.slotId = id;
+  slot.innerHTML = `
+    <div class="school-slot-header">
+      <span class="school-slot-num">School ${schoolSlotCount}</span>
+      ${schoolSlotCount > 2 ? `<button class="school-slot-remove" onclick="removeSchoolSlot(${id})">Remove</button>` : ""}
+    </div>
+    <input type="text" class="cmp-text-input" id="slot-name-${id}"
+           placeholder="School name (optional — will be extracted from document)">
+    <div class="school-slot-upload" id="slot-upload-${id}"
+         onclick="document.getElementById('slot-file-${id}').click()">
+      <input type="file" id="slot-file-${id}"
+             accept=".pdf,.jpg,.jpeg,.png,.txt,.md,.docx"
+             style="display:none"
+             onchange="handleSlotFile(${id})">
+      <span id="slot-status-${id}">Click to upload award letter, tuition bill, or school document</span>
+    </div>
+  `;
+  container.appendChild(slot);
+
+  const addBtn = document.getElementById("add-school-btn");
+  if (addBtn) {
+    addBtn.disabled = schoolSlotCount >= 5;
+    addBtn.style.opacity = schoolSlotCount >= 5 ? "0.4" : "1";
+  }
+}
+
+function removeSchoolSlot(id) {
+  const slot = document.getElementById(`slot-${id}`);
+  if (slot) slot.remove();
+  schoolSlotCount--;
+
+  const addBtn = document.getElementById("add-school-btn");
+  if (addBtn) {
+    addBtn.disabled = false;
+    addBtn.style.opacity = "1";
+  }
+
+  // Renumber visible slots
+  let n = 1;
+  document.querySelectorAll(".school-slot").forEach((el) => {
+    const numEl = el.querySelector(".school-slot-num");
+    if (numEl) numEl.textContent = `School ${n++}`;
+  });
+}
+
+function handleSlotFile(id) {
+  const fileInput = document.getElementById(`slot-file-${id}`);
+  const statusEl = document.getElementById(`slot-status-${id}`);
+  const uploadEl = document.getElementById(`slot-upload-${id}`);
+  if (fileInput && fileInput.files[0]) {
+    statusEl.textContent = `✓ ${fileInput.files[0].name}`;
+    uploadEl.classList.add("has-file");
+  }
+}
+
+async function runComparison() {
+  const profile = {
+    savings: parseInt(document.getElementById("cmp-savings").value) || 0,
+    annualOutsideScholarships:
+      parseInt(document.getElementById("cmp-scholarships").value) || 0,
+    major: document.getElementById("cmp-major").value.trim() || "Not specified",
+    stateOfResidence:
+      document.getElementById("cmp-state").value.trim() || "Not specified",
+  };
+
+  const schools = [];
+  for (const slotEl of document.querySelectorAll(".school-slot")) {
+    const id = slotEl.dataset.slotId;
+    const fileInput = document.getElementById(`slot-file-${id}`);
+    if (!fileInput || !fileInput.files[0]) continue;
+    const nameInput = document.getElementById(`slot-name-${id}`);
+    const fileData = await extractFileContent(fileInput.files[0]);
+    schools.push({
+      label: nameInput?.value.trim() || `School ${schools.length + 1}`,
+      fileData,
+    });
+  }
+
+  if (schools.length < 2) {
+    alert("Please upload documents for at least 2 schools to compare.");
+    return;
+  }
+
+  document.getElementById("compare-setup").style.display = "none";
+  document.getElementById("compare-analyzing").style.display = "block";
+  document.getElementById("compare-school-count").textContent = `${schools.length} school${schools.length > 1 ? "s" : ""}`;
+
+  const fill = document.getElementById("compare-progress-fill");
+  fill.style.animation = "none";
+  fill.offsetHeight;
+  fill.style.animation = "progress 10s ease forwards";
+
+  try {
+    const result = await callCompareAPI(profile, schools);
+    document.getElementById("compare-analyzing").style.display = "none";
+
+    if (result.error) {
+      document.getElementById("compare-setup").style.display = "block";
+      alert(`Analysis failed: ${result.error}`);
+      return;
+    }
+
+    renderCompareResults(result);
+    document.getElementById("compare-results").style.display = "block";
+    document.getElementById("compare-reset-row").style.display = "block";
+  } catch (err) {
+    document.getElementById("compare-analyzing").style.display = "none";
+    document.getElementById("compare-setup").style.display = "block";
+    alert(`Something went wrong: ${err.message || "Please try again."}`);
+  }
+}
+
+async function callCompareAPI(profile, schools) {
+  const contentBlocks = [
+    {
+      type: "text",
+      text:
+        `STUDENT FINANCIAL PROFILE:\n${JSON.stringify(profile, null, 2)}\n\n` +
+        `${schools.length} school documents follow for comparison:`,
+    },
+  ];
+
+  for (let i = 0; i < schools.length; i++) {
+    const { label, fileData } = schools[i];
+    contentBlocks.push({
+      type: "text",
+      text: `\n=== SCHOOL DOCUMENT ${i + 1}: "${label}" ===`,
+    });
+
+    if (fileData.type === "pdf") {
+      contentBlocks.push({
+        type: "document",
+        source: {
+          type: "base64",
+          media_type: "application/pdf",
+          data: fileData.base64,
+        },
+      });
+    } else if (fileData.type === "image") {
+      contentBlocks.push({
+        type: "image",
+        source: {
+          type: "base64",
+          media_type: fileData.mime || "image/jpeg",
+          data: fileData.base64,
+        },
+      });
+    } else if (fileData.type === "text" && fileData.content) {
+      contentBlocks.push({
+        type: "text",
+        text: fileData.content.slice(0, 8000),
+      });
+    } else {
+      contentBlocks.push({
+        type: "text",
+        text: `[UNSUPPORTED FILE FORMAT for "${label}" — please use PDF, image, or text file]`,
+      });
+    }
+  }
+
+  try {
+    const res = await fetch(API_PROXY_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 3500,
+        system: COMPARE_SYSTEM,
+        messages: [{ role: "user", content: contentBlocks }],
+      }),
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      return {
+        error: data?.error?.message || `Anthropic API error (${res.status})`,
+      };
+    }
+
+    const raw = data?.content?.find?.((c) => c.type === "text")?.text;
+    if (!raw) return { error: "AI returned no content." };
+
+    const clean = raw.replace(/```json|```/g, "").trim();
+    try {
+      return JSON.parse(clean);
+    } catch {
+      const repaired = await repairMalformedJson(clean);
+      return repaired || { error: "AI returned malformed JSON. Please retry." };
+    }
+  } catch (err) {
+    return { error: err?.message || "Could not reach Anthropic API." };
+  }
+}
+
+function fitColor(status) {
+  if (status === "Best Fit") return "green";
+  if (status === "Strong Contender") return "blue";
+  if (status === "Financial Risk") return "red";
+  return "amber";
+}
+
+function fmtField(val) {
+  if (val === "[DATA MISSING]" || val === null || val === undefined)
+    return "[DATA MISSING]";
+  if (typeof val === "number") return "$" + val.toLocaleString();
+  return val;
+}
+
+function renderCompareResults(data) {
+  const resultsEl = document.getElementById("compare-results");
+  const schools = data.schools || [];
+  let html = "";
+
+  // Winner narrative banner
+  if (data.narrative) {
+    html += `
+      <div class="flag green" style="margin-bottom:16px">
+        <div class="flag-dot"></div>
+        <div>
+          <div class="flag-title">Best Fit: ${data.top_recommendation || ""}</div>
+          <div class="flag-body">${data.narrative}</div>
+        </div>
+      </div>`;
+  }
+
+  // Sort: Best Fit first, then by dollar_per_quality ascending
+  const sorted = [...schools].sort((a, b) => {
+    if (a.fit_status === "Best Fit") return -1;
+    if (b.fit_status === "Best Fit") return 1;
+    return (a.dollar_per_quality || 0) - (b.dollar_per_quality || 0);
+  });
+
+  // School summary cards
+  html += `<div class="cmp-results-grid">`;
+  for (const s of sorted) {
+    const isWinner = s.fit_status === "Best Fit";
+    const color = fitColor(s.fit_status);
+    const debtColor =
+      s.debt_projection > 80000
+        ? "red"
+        : s.debt_projection < 50000
+          ? "green"
+          : "amber";
+    html += `
+      <div class="school-card${isWinner ? " winner" : ""}">
+        ${isWinner ? '<div class="winner-badge">Best Fit for your profile</div>' : '<div style="height:22px"></div>'}
+        <div class="school-name">${s.school_name}</div>
+        <div class="school-type">${s.fit_status}</div>
+        <div class="school-cost ${debtColor}">
+          $${(s.total_net_cost || 0).toLocaleString()}
+          <span style="font-size:14px; color:var(--g400)"> net</span>
+        </div>
+        <div class="school-cost-note">4-year net cost after all aid</div>
+        <div class="data-row">
+          <span class="data-row-label" style="font-size:12px">Quality Score</span>
+          <span class="data-row-value ${color}" style="font-size:12px">${s.quality_score} / 100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-row-label" style="font-size:12px">Debt Projection</span>
+          <span class="data-row-value ${debtColor}" style="font-size:12px">$${(s.debt_projection || 0).toLocaleString()}</span>
+        </div>
+        <div class="data-row">
+          <span class="data-row-label" style="font-size:12px">$/Quality Ratio</span>
+          <span class="data-row-value" style="font-size:12px">$${Math.round(s.dollar_per_quality || 0).toLocaleString()}</span>
+        </div>
+      </div>`;
+  }
+  html += `</div>`;
+
+  // Per-school quality breakdown cards
+  html += `<span class="section-label">Quality &amp; Cost Breakdown</span>`;
+  for (const s of sorted) {
+    const color = fitColor(s.fit_status);
+    const bd = s.annual_cost_breakdown || {};
+    const qb = s.quality_breakdown || {};
+    html += `
+      <div class="card">
+        <div class="card-header-row">
+          <div class="card-title">${s.school_name}</div>
+          <span class="badge ${color}">${s.fit_status}</span>
+        </div>
+        <div class="data-row">
+          <span class="data-row-label">Tuition &amp; Fees (annual)</span>
+          <span class="data-row-value">${fmtField(bd.tuition_fees)}</span>
+        </div>
+        <div class="data-row">
+          <span class="data-row-label">Room &amp; Board (annual)</span>
+          <span class="data-row-value">${fmtField(bd.room_board)}</span>
+        </div>
+        <div class="data-row">
+          <span class="data-row-label">Merit Aid (annual)</span>
+          <span class="data-row-value green">${bd.merit_aid === "[DATA MISSING]" || bd.merit_aid === null || bd.merit_aid === undefined ? "[DATA MISSING]" : typeof bd.merit_aid === "number" ? "−$" + bd.merit_aid.toLocaleString() : bd.merit_aid}</span>
+        </div>
+        <div class="data-row">
+          <span class="data-row-label">Graduation Rate</span>
+          <span class="data-row-value">${qb.graduation_rate || "[DATA MISSING]"}</span>
+        </div>
+        <div class="data-row">
+          <span class="data-row-label">Post-grad Median Salary</span>
+          <span class="data-row-value">${qb.median_salary || "[DATA MISSING]"}</span>
+        </div>
+        <div class="data-row">
+          <span class="data-row-label">Student-to-Faculty Ratio</span>
+          <span class="data-row-value">${qb.student_faculty_ratio || "[DATA MISSING]"}</span>
+        </div>
+      </div>`;
+  }
+
+  // Caveats / comparison notes
+  if (data.comparison_notes) {
+    html += `
+      <div class="flag amber">
+        <div class="flag-dot"></div>
+        <div>
+          <div class="flag-title">Notes &amp; Caveats</div>
+          <div class="flag-body">${data.comparison_notes}</div>
+        </div>
+      </div>`;
+  }
+
+  resultsEl.innerHTML = html;
+}
+
+function resetComparison() {
+  document.getElementById("compare-setup").style.display = "block";
+  document.getElementById("compare-results").style.display = "none";
+  document.getElementById("compare-results").innerHTML = "";
+  document.getElementById("compare-reset-row").style.display = "none";
+}
 
 function updateCap() {
   const loan = parseInt(document.getElementById("slider-loan").value);
