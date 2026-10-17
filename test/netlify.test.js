@@ -1,5 +1,22 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
+const { spawnSync } = require("node:child_process");
+
+test("Netlify function loads without Express or other local-server dependencies", () => {
+  const result = spawnSync(process.execPath, ["-e", `
+    const Module = require("node:module");
+    const original = Module._load;
+    Module._load = function (name, ...args) {
+      if (["express", "dotenv"].includes(name)) throw new Error("Unavailable in function: " + name);
+      return original.call(this, name, ...args);
+    };
+    import("./netlify/functions/openai.mjs").catch(error => {
+      console.error(error);
+      process.exitCode = 1;
+    });
+  `], { cwd: require("node:path").join(__dirname, ".."), encoding: "utf8" });
+  assert.equal(result.status, 0, result.stderr);
+});
 
 test("Netlify exposes the browser API route and forwards analysis through the shared handler", async () => {
   const { config, createHandler } = await import("../netlify/functions/openai.mjs");

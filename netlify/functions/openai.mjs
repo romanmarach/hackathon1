@@ -1,9 +1,9 @@
-import server from "../../server.js";
+import proxy from "../../openai-proxy.js";
 
 export const config = { path: "/api/openai/responses" };
 
 export function createHandler(options) {
-  const respond = server.createResponsesHandler(options);
+  const respond = proxy.createResponsesHandler(options);
   return async (request) => {
     if (request.method !== "POST") {
       return new Response("Method not allowed", { status: 405, headers: { Allow: "POST" } });
