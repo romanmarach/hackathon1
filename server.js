@@ -6,7 +6,12 @@ function createApp({ env = process.env, fetchImpl = fetch } = {}) {
   app.use(express.json({ limit: "25mb" }));
   app.use(express.static(path.join(__dirname)));
 
-  app.post("/api/openai/responses", async (req, res) => {
+  app.post("/api/openai/responses", createResponsesHandler({ env, fetchImpl }));
+  return app;
+}
+
+function createResponsesHandler({ env = process.env, fetchImpl = fetch } = {}) {
+  return async (req, res) => {
     const apiKey = env.OPENAI_API_KEY;
     if (!apiKey) {
       return res.status(500).json({
@@ -56,9 +61,7 @@ function createApp({ env = process.env, fetchImpl = fetch } = {}) {
           : "Failed to reach OpenAI. Please try again." },
       });
     }
-  });
-
-  return app;
+  };
 }
 
 if (require.main === module) {
@@ -69,4 +72,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { createApp };
+module.exports = { createApp, createResponsesHandler };

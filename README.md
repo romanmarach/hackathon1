@@ -63,6 +63,12 @@ Open **http://localhost:3000** in your browser.
 
 After changing `.env`, restart the server.
 
+## Netlify deployment
+
+The repository includes a Netlify function at `/api/openai/responses` that shares the local server's API handler. Netlify does not run `npm start` to serve this endpoint.
+
+In the Netlify site's environment variables, set `OPENAI_API_KEY` for Functions, and optionally `OPENAI_MODEL`. The local `.env` file is not deployed. Commit and push the Netlify function and `netlify.toml`, then deploy again after configuring the variables.
+
 ## Using the App
 
 1. Upload a document using the upload button or drag-and-drop area.
