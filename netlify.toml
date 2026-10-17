@@ -3,7 +3,7 @@
   functions = "netlify/functions"
 
 [build.environment]
-  SECRETS_SCAN_OMIT_KEYS = "OPENAI_MODEL"
+  SECRETS_SCAN_OMIT_KEYS = "OPENAI_MODEL,PORT"
 
 [functions]
   node_bundler = "esbuild"
