@@ -18,9 +18,9 @@ function createApp({ env = process.env, fetchImpl = fetch } = {}) {
     if ((!Array.isArray(input) && typeof input !== "string") || !input.length) {
       return res.status(400).json({ error: { message: "A nonempty input is required." } });
     }
-    if (!Number.isInteger(max_output_tokens) || max_output_tokens < 1 || max_output_tokens > 6000) {
+    if (!Number.isInteger(max_output_tokens) || max_output_tokens < 1 || max_output_tokens > 16000) {
       return res.status(400).json({
-        error: { message: "max_output_tokens must be an integer between 1 and 6000." },
+        error: { message: "max_output_tokens must be an integer between 1 and 16000." },
       });
     }
 
@@ -31,7 +31,7 @@ function createApp({ env = process.env, fetchImpl = fetch } = {}) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${apiKey}`,
         },
-        signal: AbortSignal.timeout(60000),
+        signal: AbortSignal.timeout(120000),
         body: JSON.stringify({
           model: env.OPENAI_MODEL || "gpt-5.4-mini",
           store: false,

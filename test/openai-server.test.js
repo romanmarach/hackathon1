@@ -52,6 +52,19 @@ test("model can be configured through OPENAI_MODEL", async (t) => {
   assert.equal(selectedModel, "configured-model");
 });
 
+test("full-document analysis forwards its strict schema and larger extraction budget", async (t) => {
+  const { format } = require("../analysis");
+  let sent;
+  const post=await startServer(t,{
+    env:{OPENAI_API_KEY:"test-only-key"},
+    fetchImpl:async (_url,options)=>{sent=JSON.parse(options.body);return new Response("{}",{status:200});},
+  });
+  assert.equal((await post({input:"Analyze all parts.",max_output_tokens:16000,text:{format}})).status,200);
+  assert.equal(sent.max_output_tokens,16000);
+  assert.deepEqual(sent.text.format,format);
+  assert.equal(sent.store,false);
+});
+
 test("missing credentials and invalid inputs fail locally without an upstream call", async (t) => {
   let calls = 0;
   const fetchImpl = async () => { calls++; throw new Error("Should not be called."); };

@@ -68,9 +68,12 @@ function analysis(overrides = {}) {
     institution: "Student University",
     summary: "A unique student award.",
     totalCost: 30000,
-    freeAid: 18000,
-    remainingCost: 12000,
+    reportedTotals: { giftAid: 18000 },
+    funding: [{ id: "unique", name: "Unique Grant", kind: "grant", amount: 18000, amountBasis: "document_period", source: "Page 1" }],
+    sections: [{ id: "award", title: "Award letter", status: "extracted", summary: "One grant", source: "Page 1", details: [], missingDetails: [] }],
+    detectedSectionCount: 1,
     healthScore: 82,
+    healthScoreBasis: "financial_risk",
     healthReason: "Most costs are covered by grants.",
     documents: [{ title: "Unique Grant", rows: [{ label: "Amount", value: "$18,000" }] }],
     redFlags: [
@@ -125,6 +128,7 @@ function createApp(fetchImpl = async () => apiResponse("A grounded answer.")) {
     },
   };
   vm.createContext(sandbox);
+  vm.runInContext(fs.readFileSync(path.join(root, "analysis.js"), "utf8"), sandbox);
   vm.runInContext(script, sandbox);
   return {
     app: sandbox,
@@ -165,7 +169,7 @@ test("successful upload synchronizes dashboard, scanner score, counts and source
   assert.match(nodes.get("red-flags-dynamic").innerHTML, /Unique risk/);
   assert.equal(nodes.get("dashboard-risk-count").textContent, "2");
   assert.match(nodes.get("dashboard-risks").innerHTML, /Unique risk/);
-  assert.equal(nodes.get("decoded-count").textContent, "1 item decoded");
+  assert.equal(nodes.get("decoded-count").textContent, "1 funding item");
   assert.match(nodes.get("dashboard-source").textContent, /student-award.txt/);
   assert.match(nodes.get("chat-context-status").textContent, /student-award.txt/);
 });
@@ -203,8 +207,8 @@ test("sample data is explicitly labeled and uses the same score and flag counts"
   assert.equal(nodes.get("score-number").textContent, "63");
   assert.equal(nodes.get("redflags-score-number").textContent, "63");
   assert.equal(badge.textContent, "3");
-  assert.equal(nodes.get("dashboard-risk-count").textContent, "5");
-  assert.match(nodes.get("redflags-counts").textContent, /3 critical.*2 warnings.*2 good/);
+  assert.equal(nodes.get("dashboard-risk-count").textContent, "6");
+  assert.match(nodes.get("redflags-counts").textContent, /3 critical.*3 warnings.*2 good/);
   await app.sendMessage("What is the remaining cost?");
   assert.match(requests[0].body.instructions, /15700/);
   assert.match(requests[0].body.instructions, /sample/i);
@@ -293,7 +297,8 @@ test("late upload responses cannot replace explicitly selected sample data", asy
 test("missing amounts and scores remain unknown, and malformed arrays cannot crash the flow", async () => {
   const { upload, nodes } = createApp(async () => apiResponse(JSON.stringify(analysis({
     totalCost: null,
-    freeAid: 0,
+    reportedTotals: { giftAid: 0 },
+    funding: null,
     remainingCost: null,
     healthScore: null,
     documents: { title: "Unexpected response shape" },
@@ -329,7 +334,7 @@ test("extracted document text is displayed as content rather than executable mar
   const markup = '<img src=x onerror="alert(1)">';
   const { upload, nodes } = createApp(async () => apiResponse(JSON.stringify(analysis({
     healthReason: markup,
-    documents: [{ title: markup, badgeType: 'red" onclick="alert(1)', rows: [{ label: markup, value: markup }] }],
+    funding: [{ id: "xss", name: markup, kind: "grant", amount: 18000, amountBasis: "document_period", conditions: [markup] }],
     actions: [markup],
     redFlags: [{ type: "red", title: markup, body: markup }],
   }))));
@@ -385,7 +390,8 @@ test("PDF and Word uploads send native OpenAI file inputs with binary contents p
       file_data: `data:${mime};base64,${Buffer.from("binary content").toString("base64")}`,
     });
     assert.equal(request.body.input[0].content[1].type, "input_text");
-    assert.equal(request.body.text.format.type, "json_object");
+    assert.equal(request.body.text.format.type, "json_schema");
+    assert.equal(request.body.text.format.strict, true);
     assert.equal(request.body.model, undefined);
   }
 });
@@ -406,13 +412,55 @@ test("Responses parser handles reasoning entries, multiple text parts, and refus
   assert.throws(() => app.getResponseText({ output: [{ type: "message", content: [{ type: "refusal", refusal: "Cannot process this file." }] }] }), /Cannot process/);
 });
 
-test("malformed JSON repair also uses the OpenAI Responses contract", async () => {
-  let calls = 0;
-  const { app, requests } = createApp(async () => apiResponse(++calls === 1 ? '{"valid":true,' : JSON.stringify(analysis())));
+test("malformed structured output fails without inventing a repaired extraction", async () => {
+  const { app, requests } = createApp(async () => apiResponse('{"valid":true,'));
   const result = await app.analyzeDocumentWithOpenAI({ name: "award.txt", type: "text", content: "My award." });
-  assert.equal(result.valid, true);
-  assert.equal(requests.length, 2);
-  assert.match(requests[1].body.instructions, /repair malformed JSON/);
-  assert.equal(requests[1].body.text.format.type, "json_object");
-  assert.equal(requests[1].body.max_output_tokens, 2500);
+  assert.equal(result.valid, false);
+  assert.match(result.reason, /malformed JSON/);
+  assert.equal(requests.length, 1);
+});
+
+test("a fully funded package still shows the cost after gift aid and total borrowing", () => {
+  const { app, nodes } = createApp();
+  app.setCurrentDocument({
+    ...analysis(), totalCost: 59500, freeAid: 24700, remainingCost: 0,
+    reportedTotals: { giftAid: 24700, workStudy: 2800, totalBorrowing: 32000, unmetNeed: 0 },
+    funding: [
+      { id: "gift", name: "Grants and scholarships", kind: "grant", amount: 24700, amountBasis: "document_period" },
+      { id: "work", name: "Work-study", kind: "work_study", amount: 2800, amountBasis: "document_period" },
+      { id: "student", name: "Student loans", kind: "other_loan", amount: 15000, amountBasis: "document_period", loan: { borrower: "student" } },
+      { id: "parent", name: "Parent PLUS", kind: "parent_plus", amount: 17000, amountBasis: "document_period", loan: { borrower: "parent" } },
+    ],
+  }, "upload", "Hartwell.pdf");
+  assert.equal(nodes.get("metric-owed").textContent, "$34,800");
+  assert.equal(nodes.get("metric-borrowed").textContent, "$32,000");
+  assert.equal(nodes.get("reported-unmet-need").textContent, "$0");
+});
+
+test("Hartwell deadlines, source inventory, loan conditions and repayment caveats are rendered", () => {
+  const { app, nodes } = createApp();
+  app.setCurrentDocument(require("./fixtures/hartwell.expected.json"), "upload", "Hartwell.pdf");
+  assert.match(nodes.get("dashboard-source").textContent, /fictional test/);
+  assert.match(nodes.get("coverage-summary").textContent, /12 \/ 12/);
+  assert.match(nodes.get("deadline-items").innerHTML, /May 1, 2027/);
+  assert.match(nodes.get("deadline-items").innerHTML, /August 20, 2027/);
+  assert.match(nodes.get("repayment-items").innerHTML, /Actual payments may be higher/);
+  assert.match(nodes.get("disbursement-items").innerHTML, /January 12, 2028/);
+  assert.match(nodes.get("doc-cards").innerHTML, /36 consecutive/);
+  assert.match(nodes.get("doc-cards").innerHTML, /120 days/);
+  assert.doesNotMatch(nodes.get("doc-cards").innerHTML, /Best Type|Free Money/);
+  app.startNewDocument();
+  assert.doesNotMatch(nodes.get("deadline-items").innerHTML, /May 1, 2027/);
+  assert.doesNotMatch(nodes.get("coverage-sections").innerHTML, /Part 12/);
+});
+
+test("long text is sent completely and oversized text fails explicitly", async () => {
+  const { app, requests } = createApp(async () => apiResponse(JSON.stringify(analysis())));
+  const content="x".repeat(9000)+"DEADLINE_AT_END";
+  await app.analyzeDocumentWithOpenAI({name:"long.txt",type:"text",content});
+  assert.match(requests[0].body.input[0].content,/DEADLINE_AT_END/);
+  const result=await app.analyzeDocumentWithOpenAI({name:"huge.txt",type:"text",content:"x".repeat(200001)});
+  assert.equal(result.valid,false);
+  assert.match(result.reason,/too long/);
+  assert.equal(requests.length,1);
 });

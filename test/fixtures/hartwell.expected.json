@@ -1,0 +1,662 @@
+{
+  "valid": true,
+  "reason": null,
+  "isExample": true,
+  "documentType": "Financial aid and student loan package",
+  "institution": "Hartwell University",
+  "period": "2027–2028",
+  "summary": "Fictional package: $59,500 cost, $24,700 gift aid, $2,800 earned work-study, and $32,000 in loans. The reported $0 unmet need includes borrowing.",
+  "totalCost": 59500,
+  "totalCostSource": "Part 2, page 1",
+  "costItems": [
+    {
+      "name": "Tuition",
+      "amount": 38400,
+      "source": "Part 2, page 1"
+    },
+    {
+      "name": "Mandatory fees",
+      "amount": 1850,
+      "source": "Part 2, page 1"
+    },
+    {
+      "name": "Housing and food",
+      "amount": 14200,
+      "source": "Part 2, page 1"
+    },
+    {
+      "name": "Books and supplies",
+      "amount": 1200,
+      "source": "Part 2, page 1"
+    },
+    {
+      "name": "Transportation",
+      "amount": 1500,
+      "source": "Part 2, page 1"
+    },
+    {
+      "name": "Personal expenses",
+      "amount": 2350,
+      "source": "Part 2, page 1"
+    }
+  ],
+  "reportedTotals": {
+    "giftAid": 24700,
+    "workStudy": 2800,
+    "studentLoans": null,
+    "parentLoans": 17000,
+    "totalBorrowing": 32000,
+    "totalAid": 59500,
+    "unmetNeed": 0,
+    "loanFees": 798.04,
+    "netDisbursed": 31201.96,
+    "source": "Parts 3 and 7, pages 2 and 5"
+  },
+  "funding": [
+    {
+      "id": "merit",
+      "name": "Hartwell Merit Scholarship",
+      "kind": "scholarship",
+      "amount": 15000,
+      "amountBasis": "document_period",
+      "status": "Automatically accepted",
+      "conditions": [],
+      "source": "Part 3, page 2",
+      "loan": null
+    },
+    {
+      "id": "need",
+      "name": "Hartwell Need-Based Grant",
+      "kind": "grant",
+      "amount": 6500,
+      "amountBasis": "document_period",
+      "status": "Automatically accepted",
+      "conditions": [],
+      "source": "Part 3, page 2",
+      "loan": null
+    },
+    {
+      "id": "pell",
+      "name": "Federal Pell Grant",
+      "kind": "grant",
+      "amount": 3200,
+      "amountBasis": "document_period",
+      "status": "Automatically accepted",
+      "conditions": [],
+      "source": "Part 3, page 2",
+      "loan": null
+    },
+    {
+      "id": "work",
+      "name": "Federal Work-Study",
+      "kind": "work_study",
+      "amount": 2800,
+      "amountBasis": "document_period",
+      "status": "Optional",
+      "conditions": [
+        "Optional employment; must be earned and is not credited to the bill."
+      ],
+      "source": "Part 3, page 2",
+      "loan": null
+    },
+    {
+      "id": "subsidized",
+      "name": "Federal Direct Subsidized Loan",
+      "kind": "federal_subsidized",
+      "amount": 5500,
+      "amountBasis": "document_period",
+      "status": "Pending acceptance",
+      "conditions": [
+        "Complete MPN and entrance counseling."
+      ],
+      "source": "Part 4, page 3",
+      "loan": {
+        "borrower": "student",
+        "ratePercent": 6.39,
+        "rateType": "fixed",
+        "feePercent": 1.057,
+        "feeAmount": 58.14,
+        "netAmount": 5441.86,
+        "interestAccruesInSchool": false,
+        "dailyInterest": null,
+        "capitalization": null,
+        "inSchoolDeferment": null,
+        "gracePeriod": "Six months after graduation, leaving school, or dropping below half-time.",
+        "cosignerRelease": null,
+        "defaultTerms": null,
+        "details": [
+          {
+            "label": "Interest subsidy",
+            "value": "Government pays interest during enrollment and grace.",
+            "source": "Part 4, page 3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "unsubsidized",
+      "name": "Federal Direct Unsubsidized Loan",
+      "kind": "federal_unsubsidized",
+      "amount": 2000,
+      "amountBasis": "document_period",
+      "status": "Pending acceptance",
+      "conditions": [
+        "Complete MPN and entrance counseling."
+      ],
+      "source": "Part 4, page 3",
+      "loan": {
+        "borrower": "student",
+        "ratePercent": 6.39,
+        "rateType": "fixed",
+        "feePercent": 1.057,
+        "feeAmount": 21.14,
+        "netAmount": 1978.86,
+        "interestAccruesInSchool": true,
+        "dailyInterest": 0.35,
+        "capitalization": "Unpaid in-school interest capitalizes when repayment begins.",
+        "inSchoolDeferment": null,
+        "gracePeriod": "Six months after graduation, leaving school, or dropping below half-time.",
+        "cosignerRelease": null,
+        "defaultTerms": null,
+        "details": [
+          {
+            "label": "Grace-period interest",
+            "value": "Interest also accrues during grace.",
+            "source": "Part 4, page 3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "plus",
+      "name": "Federal Parent PLUS Loan",
+      "kind": "parent_plus",
+      "amount": 17000,
+      "amountBasis": "document_period",
+      "status": "Parent application required",
+      "conditions": [
+        "Parent application required."
+      ],
+      "source": "Part 5, pages 3–4",
+      "loan": {
+        "borrower": "parent",
+        "ratePercent": 8.94,
+        "rateType": "fixed",
+        "feePercent": 4.228,
+        "feeAmount": 718.76,
+        "netAmount": 16281.24,
+        "interestAccruesInSchool": true,
+        "dailyInterest": null,
+        "capitalization": null,
+        "inSchoolDeferment": "Parent may request deferment while student is at least half-time and for six months afterward.",
+        "gracePeriod": null,
+        "cosignerRelease": null,
+        "defaultTerms": null,
+        "details": [
+          {
+            "label": "Borrower",
+            "value": "Maria Ellison; parent is legally responsible, not the student.",
+            "source": "Part 5, page 3"
+          },
+          {
+            "label": "Credit check",
+            "value": "Required; denial may permit additional unsubsidized borrowing.",
+            "source": "Part 5, page 3"
+          },
+          {
+            "label": "Repayment start",
+            "value": "Within 60 days of final disbursement unless deferment requested; interest accrues from first disbursement.",
+            "source": "Part 5, page 4"
+          }
+        ]
+      }
+    },
+    {
+      "id": "private",
+      "name": "Summit Ridge Private Education Loan",
+      "kind": "private_loan",
+      "amount": 7500,
+      "amountBasis": "document_period",
+      "status": "Application required",
+      "conditions": [
+        "Student and cosigner application required."
+      ],
+      "source": "Part 6, page 4",
+      "loan": {
+        "borrower": "student",
+        "ratePercent": 8.24,
+        "rateType": "fixed",
+        "feePercent": 0,
+        "feeAmount": 0,
+        "netAmount": 7500,
+        "interestAccruesInSchool": true,
+        "dailyInterest": null,
+        "capitalization": "Accrued interest capitalizes at repayment start.",
+        "inSchoolDeferment": "At least half-time enrollment plus six months after leaving.",
+        "gracePeriod": "Six months after enrollment ends.",
+        "cosignerRelease": "After 36 consecutive on-time principal and interest payments, subject to borrower credit review.",
+        "defaultTerms": "Default after 120 days of nonpayment; cosigner remains fully liable.",
+        "details": [
+          {
+            "label": "APR",
+            "value": "8.24% fixed",
+            "source": "Part 6, page 4"
+          },
+          {
+            "label": "Finance charge",
+            "value": "$3,534",
+            "source": "Part 6, page 4"
+          },
+          {
+            "label": "Late fee",
+            "value": "Lesser of 5% of past-due amount or $15.",
+            "source": "Part 6, page 4"
+          },
+          {
+            "label": "Prepayment",
+            "value": "No prepayment penalty.",
+            "source": "Part 6, page 4"
+          },
+          {
+            "label": "Cosigner",
+            "value": "Maria Ellison; fully liable for repayment.",
+            "source": "Part 6, page 4"
+          }
+        ]
+      }
+    }
+  ],
+  "borrowingHistory": {
+    "priorFederalBorrowing": 12000,
+    "cumulativeFederalBorrowing": 19500,
+    "aggregateLimit": 31000,
+    "subsidizedLimit": 23000,
+    "source": "Part 4, page 3"
+  },
+  "deadlines": [
+    {
+      "action": "Accept, decline, or reduce each award",
+      "who": "Student",
+      "date": "May 1, 2027",
+      "source": "Part 11, page 7"
+    },
+    {
+      "action": "Complete federal Master Promissory Note",
+      "who": "Student",
+      "date": "June 1, 2027",
+      "source": "Part 11, page 7"
+    },
+    {
+      "action": "Complete Parent PLUS application and MPN",
+      "who": "Parent",
+      "date": "June 1, 2027",
+      "source": "Part 11, page 7"
+    },
+    {
+      "action": "Complete private loan application",
+      "who": "Student and parent/cosigner",
+      "date": "June 15, 2027",
+      "source": "Part 11, page 7"
+    },
+    {
+      "action": "Complete work-study I-9 if accepting work-study",
+      "who": "Student",
+      "date": "August 15, 2027",
+      "source": "Part 11, page 7"
+    },
+    {
+      "action": "Pay any remaining balance",
+      "who": "Student / parent",
+      "date": "August 20, 2027",
+      "source": "Part 11, page 7"
+    }
+  ],
+  "disbursements": [
+    {
+      "fundingId": "subsidized",
+      "loanName": "Direct Subsidized",
+      "date": "August 25, 2027",
+      "term": "Fall 2027",
+      "grossAmount": null,
+      "feeAmount": null,
+      "netAmount": 2720.93,
+      "source": "Part 7, page 5"
+    },
+    {
+      "fundingId": "unsubsidized",
+      "loanName": "Direct Unsubsidized",
+      "date": "August 25, 2027",
+      "term": "Fall 2027",
+      "grossAmount": null,
+      "feeAmount": null,
+      "netAmount": 989.43,
+      "source": "Part 7, page 5"
+    },
+    {
+      "fundingId": "plus",
+      "loanName": "Parent PLUS",
+      "date": "August 25, 2027",
+      "term": "Fall 2027",
+      "grossAmount": null,
+      "feeAmount": null,
+      "netAmount": 8140.62,
+      "source": "Part 7, page 5"
+    },
+    {
+      "fundingId": "private",
+      "loanName": "Private Loan",
+      "date": "August 25, 2027",
+      "term": "Fall 2027",
+      "grossAmount": null,
+      "feeAmount": null,
+      "netAmount": 3750,
+      "source": "Part 7, page 5"
+    },
+    {
+      "fundingId": "subsidized",
+      "loanName": "Direct Subsidized",
+      "date": "January 12, 2028",
+      "term": "Spring 2028",
+      "grossAmount": null,
+      "feeAmount": null,
+      "netAmount": 2720.93,
+      "source": "Part 7, page 5"
+    },
+    {
+      "fundingId": "unsubsidized",
+      "loanName": "Direct Unsubsidized",
+      "date": "January 12, 2028",
+      "term": "Spring 2028",
+      "grossAmount": null,
+      "feeAmount": null,
+      "netAmount": 989.43,
+      "source": "Part 7, page 5"
+    },
+    {
+      "fundingId": "plus",
+      "loanName": "Parent PLUS",
+      "date": "January 12, 2028",
+      "term": "Spring 2028",
+      "grossAmount": null,
+      "feeAmount": null,
+      "netAmount": 8140.62,
+      "source": "Part 7, page 5"
+    },
+    {
+      "fundingId": "private",
+      "loanName": "Private Loan",
+      "date": "January 12, 2028",
+      "term": "Spring 2028",
+      "grossAmount": null,
+      "feeAmount": null,
+      "netAmount": 3750,
+      "source": "Part 7, page 5"
+    }
+  ],
+  "repaymentPlans": [
+    {
+      "loanName": "Combined Federal Direct Loans",
+      "borrower": "student",
+      "principal": 7500,
+      "ratePercent": 6.39,
+      "monthlyPayment": 84.75,
+      "totalPayments": 10170,
+      "totalInterest": null,
+      "termMonths": 120,
+      "startDate": "November 2029",
+      "excludesInSchoolInterest": true,
+      "assumptions": "10-year standard estimate; excludes accrued or capitalized in-school interest. Student start assumes May 2029 graduation plus six-month grace.",
+      "source": "Part 8, page 5"
+    },
+    {
+      "loanName": "Parent PLUS",
+      "borrower": "parent",
+      "principal": 17000,
+      "ratePercent": 8.94,
+      "monthlyPayment": 214.8,
+      "totalPayments": 25776,
+      "totalInterest": null,
+      "termMonths": 120,
+      "startDate": "Within 60 days of final disbursement unless deferred",
+      "excludesInSchoolInterest": true,
+      "assumptions": "10-year standard estimate; excludes accrued or capitalized in-school interest. Student start assumes May 2029 graduation plus six-month grace.",
+      "source": "Part 8, page 5"
+    },
+    {
+      "loanName": "Summit Ridge Private Loan",
+      "borrower": "student",
+      "principal": 7500,
+      "ratePercent": 8.24,
+      "monthlyPayment": 91.95,
+      "totalPayments": 11034,
+      "totalInterest": 3534,
+      "termMonths": 120,
+      "startDate": "November 2029",
+      "excludesInSchoolInterest": true,
+      "assumptions": "10-year standard estimate; excludes accrued or capitalized in-school interest. Student start assumes May 2029 graduation plus six-month grace.",
+      "source": "Part 8, page 5"
+    }
+  ],
+  "terms": [
+    {
+      "term": "Satisfactory Academic Progress",
+      "explanation": "Maintain cumulative GPA of at least 2.0 and complete at least 67% of attempted credits; failure can suspend aid.",
+      "source": "Part 9, page 6"
+    },
+    {
+      "term": "Enrollment changes",
+      "explanation": "Dropping below full-time may reduce or cancel aid or require returned funds.",
+      "source": "Part 9, page 6"
+    },
+    {
+      "term": "Deferment",
+      "explanation": "Temporary postponement; interest continues on unsubsidized, PLUS, and private loans.",
+      "source": "Part 9, page 6"
+    },
+    {
+      "term": "Forbearance",
+      "explanation": "Temporary reduction or pause at servicer discretion; interest always accrues and may capitalize.",
+      "source": "Part 9, page 6"
+    },
+    {
+      "term": "Capitalization",
+      "explanation": "Unpaid interest is added to principal, increasing the balance on which interest is charged.",
+      "source": "Part 9, page 6"
+    },
+    {
+      "term": "Federal delinquency and default",
+      "explanation": "Delinquent the day after a missed payment; default after 270 days can cause wage garnishment, tax offsets, and credit damage.",
+      "source": "Part 9, page 6"
+    },
+    {
+      "term": "Federal repayment plans",
+      "explanation": "Standard 10 years, graduated, extended up to 25 years if balance exceeds $30,000, or eligible income-driven plans. Parent PLUS has limited options unless consolidated.",
+      "source": "Part 9, page 6"
+    },
+    {
+      "term": "Consolidation",
+      "explanation": "Federal weighted-average rate rounded up to the nearest one-eighth percent; private loans excluded.",
+      "source": "Part 9, page 6"
+    },
+    {
+      "term": "Verification",
+      "explanation": "Missing requested documents can delay disbursement.",
+      "source": "Part 9, page 6"
+    }
+  ],
+  "rightsAndResponsibilities": [
+    {
+      "kind": "right",
+      "text": "Receive loan agreement and disclosures before signing.",
+      "source": "Part 10, page 6"
+    },
+    {
+      "kind": "right",
+      "text": "Know interest rates, fees, total repayment, and start date.",
+      "source": "Part 10, page 6"
+    },
+    {
+      "kind": "right",
+      "text": "Prepay without penalty.",
+      "source": "Part 10, page 6"
+    },
+    {
+      "kind": "right",
+      "text": "Request deferment or forbearance if eligible.",
+      "source": "Part 10, page 6"
+    },
+    {
+      "kind": "right",
+      "text": "Receive notice before a servicing transfer.",
+      "source": "Part 10, page 6"
+    },
+    {
+      "kind": "responsibility",
+      "text": "Repay even if leaving school or unable to find employment.",
+      "source": "Part 10, page 7"
+    },
+    {
+      "kind": "responsibility",
+      "text": "Notify servicer within 10 days of name, contact, or enrollment changes.",
+      "source": "Part 10, page 7"
+    },
+    {
+      "kind": "responsibility",
+      "text": "Complete entrance and exit counseling.",
+      "source": "Part 10, page 7"
+    },
+    {
+      "kind": "responsibility",
+      "text": "Pay on time even without receiving a bill.",
+      "source": "Part 10, page 7"
+    },
+    {
+      "kind": "responsibility",
+      "text": "Use funds only for educational expenses.",
+      "source": "Part 10, page 7"
+    }
+  ],
+  "detectedSectionCount": 12,
+  "sections": [
+    {
+      "id": "Part 1",
+      "title": "Award Letter",
+      "status": "extracted",
+      "source": "Part 1, page 1",
+      "summary": "Letter dated March 14, 2027. Junior dependent undergraduate, full-time 12+ credits, expected May 2029 graduation. Accept, decline, or reduce by May 1; unaccepted awards may cancel.",
+      "missingDetails": [],
+      "details": []
+    },
+    {
+      "id": "Part 2",
+      "title": "Cost of Attendance",
+      "status": "extracted",
+      "source": "Part 2, page 1",
+      "summary": "Six costs sum to $59,500.",
+      "missingDetails": [],
+      "details": []
+    },
+    {
+      "id": "Part 3",
+      "title": "Aid Summary",
+      "status": "extracted",
+      "source": "Part 3, page 2",
+      "summary": "Gift aid $24,700, work-study $2,800, borrowing $32,000; reported unmet need $0.",
+      "missingDetails": [],
+      "details": []
+    },
+    {
+      "id": "Part 4",
+      "title": "Federal Direct Loans",
+      "status": "extracted",
+      "source": "Part 4, page 3",
+      "summary": "Subsidized $5,500 and unsubsidized $2,000; rates, fees, net proceeds, grace, interest, history and caps extracted.",
+      "missingDetails": [],
+      "details": []
+    },
+    {
+      "id": "Part 5",
+      "title": "Parent PLUS",
+      "status": "extracted",
+      "source": "Part 5, page 3",
+      "summary": "Parent debt, credit check, fees, net proceeds, and repayment/deferment conditions extracted.",
+      "missingDetails": [],
+      "details": []
+    },
+    {
+      "id": "Part 6",
+      "title": "Private Loan and Truth in Lending",
+      "status": "extracted",
+      "source": "Part 6, page 4",
+      "summary": "Fixed 8.24% APR, $7,500 financed, 120 months, $91.95 monthly, $3,534 finance charge, $11,034 total. In-school interest excluded. Cosigner and default conditions extracted.",
+      "missingDetails": [],
+      "details": []
+    },
+    {
+      "id": "Part 7",
+      "title": "Disbursement Schedule",
+      "status": "extracted",
+      "source": "Part 7, page 5",
+      "summary": "Two terms, $15,600.98 net each; $31,201.96 total net, $798.04 fees. School applies funds to tuition, fees and housing; credit refunds within 14 days to student or parent on PLUS request.",
+      "missingDetails": [],
+      "details": []
+    },
+    {
+      "id": "Part 8",
+      "title": "Repayment Summary",
+      "status": "extracted",
+      "source": "Part 8, page 5",
+      "summary": "10-year estimates exclude in-school interest; expected student start November 2029.",
+      "missingDetails": [],
+      "details": []
+    },
+    {
+      "id": "Part 9",
+      "title": "Terms and Conditions",
+      "status": "extracted",
+      "source": "Part 9, page 6",
+      "summary": "Nine terms and conditions extracted.",
+      "missingDetails": [],
+      "details": []
+    },
+    {
+      "id": "Part 10",
+      "title": "Borrower Rights and Responsibilities",
+      "status": "extracted",
+      "source": "Part 10, page 6",
+      "summary": "Five rights and five responsibilities, continued on page 7.",
+      "missingDetails": [],
+      "details": []
+    },
+    {
+      "id": "Part 11",
+      "title": "Deadlines and Next Steps",
+      "status": "extracted",
+      "source": "Part 11, page 7",
+      "summary": "Six dated action rows extracted.",
+      "missingDetails": [],
+      "details": []
+    },
+    {
+      "id": "Part 12",
+      "title": "Signatures and Acknowledgments",
+      "status": "extracted",
+      "source": "Part 12, page 7",
+      "summary": "Student and parent/cosigner signature lines; aid officer date March 14, 2027; loans must be repaid with interest and estimates depend on approval.",
+      "missingDetails": [],
+      "details": []
+    }
+  ],
+  "healthScore": null,
+  "healthReason": null,
+  "redFlags": [],
+  "actions": [
+    "Review and accept, decline, or reduce each award by May 1, 2027."
+  ],
+  "repaymentAssumptions": {
+    "excludesInSchoolInterest": true,
+    "assumptions": "All Part 8 estimates assume 10-year standard repayment and exclude interest accrued or capitalized in school; projection only.",
+    "source": "Part 8, page 5"
+  },
+  "healthScoreBasis": "unknown"
+}

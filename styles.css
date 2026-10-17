@@ -369,7 +369,7 @@ button {
 /* ── METRICS ──────────────────────────────────────────────── */
 .metrics {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
   margin-bottom: 28px;
   background: white;
@@ -1306,6 +1306,23 @@ button {
 }
 
 /* Results workspace */
+.funding-explainer { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.funding-explainer span, .funding-explainer strong, .funding-explainer small { display: block; }
+.funding-explainer span { font-size: 12px; color: var(--g500); }
+.funding-explainer strong { margin-block: 5px; font-size: 19px; font-variant-numeric: tabular-nums; }
+.funding-explainer small, .detail-note { font-size: 12px; color: var(--g500); line-height: 1.6; }
+.source-ref { display: block; font-size: 11px; color: var(--g500); margin-top: 5px; }
+.coverage-issue { padding: 10px 12px; border-left: 3px solid var(--amber); background: #fffbeb; font-size: 12px; line-height: 1.6; margin-block: 10px; }
+.source-section, .repayment-plan { padding-block: 14px; border-bottom: 1px solid var(--g200); font-size: 13px; line-height: 1.7; overflow-wrap: anywhere; }
+.source-section h3, .repayment-plan h3 { font-size: 14px; }
+.source-section p, .repayment-plan p, #borrower-rights p { margin-top: 8px; }
+#borrower-rights { font-size: 13px; line-height: 1.7; }
+.card details > summary { cursor: pointer; font-size: 13px; font-weight: 600; padding-block: 8px; }
+.table-scroll { overflow-x: auto; max-width: 100%; margin-top: 12px; }
+.package-table { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }
+.package-table th, .package-table td { padding: 12px 8px; border-bottom: 1px solid var(--g200); vertical-align: top; line-height: 1.6; min-width: 90px; }
+.package-table th { font-weight: 600; color: var(--g500); }
+#coverage-heading + span { white-space: normal; text-align: right; }
 .dashboard-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
@@ -1351,6 +1368,10 @@ button {
 
 /* Laptop and tablet */
 @media (max-width: 1200px) {
+  .funding-explainer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .metric:nth-child(even) { border-right: 0; }
+  .metric:nth-child(n + 3) { border-top: 1px solid var(--g200); }
   .main { padding-inline: 26px; }
   .dashboard-grid { grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; }
   .metric { padding: 22px 18px; }
@@ -1415,9 +1436,9 @@ button {
   .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 24px; }
   .metric { padding: 18px; }
   .metric:nth-child(2) { border-right: 0; }
-  .metric-remaining { grid-column: 1 / -1; border-top: 1px solid var(--g200); }
+  .metric-remaining { grid-column: auto; }
   .metric-value { font-size: 27px; }
-  .metric-remaining .metric-value { font-size: 34px; }
+  .metric-remaining .metric-value { font-size: 27px; }
   .metric-note { font-size: 10px; }
   .metric-label { font-size: 9px; letter-spacing: .4px; }
   .dashboard-grid, .terms-grid, .school-grid { grid-template-columns: 1fr; }

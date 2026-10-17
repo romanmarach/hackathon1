@@ -183,14 +183,32 @@
             <div class="analysis-source" id="dashboard-source" role="status"></div>
             <p class="analysis-summary" id="analysis-summary"></p>
             <div class="metrics">
-              <div class="metric"><div class="metric-label">Total cost of attendance</div><div class="metric-value" id="metric-total">&mdash;</div><div class="metric-note">Per academic year</div></div>
-              <div class="metric"><div class="metric-label">Free aid</div><div class="metric-value green" id="metric-free">&mdash;</div><div class="metric-note">Grants &amp; scholarships</div></div>
-              <div class="metric metric-remaining"><div class="metric-label">Your remaining cost</div><div class="metric-value red" id="metric-owed">&mdash;</div><div class="metric-note">Loans &amp; out-of-pocket</div></div>
+              <div class="metric"><div class="metric-label">Cost of attendance</div><div class="metric-value" id="metric-total">&mdash;</div><div class="metric-note" id="package-period">Document period</div></div>
+              <div class="metric"><div class="metric-label">Gift aid</div><div class="metric-value green" id="metric-free">&mdash;</div><div class="metric-note">Grants &amp; scholarships</div></div>
+              <div class="metric"><div class="metric-label">Total borrowing offered</div><div class="metric-value" id="metric-borrowed">&mdash;</div><div class="metric-note">Student &amp; parent loans, before fees</div></div>
+              <div class="metric metric-remaining"><div class="metric-label">Cost after gift aid</div><div class="metric-value red" id="metric-owed">&mdash;</div><div class="metric-note">Before loans and work-study</div></div>
             </div>
+            <div class="funding-explainer card">
+              <div><span>Student borrowing</span><strong id="student-borrowing"></strong></div>
+              <div><span>Parent borrowing</span><strong id="parent-borrowing"></strong></div>
+              <div><span>Work-study offered</span><strong id="metric-work-study"></strong><small>Must be earned through a job; not an upfront bill credit.</small></div>
+              <div><span>Reported unmet need</span><strong id="reported-unmet-need"></strong><small>After all awards, including loans. Zero does not mean zero debt or zero bill balance.</small></div>
+            </div>
+            <section class="card" aria-labelledby="coverage-heading">
+              <div class="section-heading"><h2 id="coverage-heading">Document coverage</h2><span id="coverage-summary"></span></div>
+              <p class="detail-note">Coverage reflects the extracted section inventory. Check the original before relying on a deadline or loan condition.</p>
+              <div id="coverage-issues"></div>
+              <details><summary>Review source sections and remaining details</summary><div id="coverage-sections"></div></details>
+            </section>
             <div class="dashboard-grid">
               <section class="documents-panel" aria-labelledby="documents-heading">
+                <section class="card"><h2 class="card-title">Deadlines &amp; required actions</h2><div id="deadline-items"></div></section>
                 <div class="section-heading"><h2 id="documents-heading">Your package breakdown</h2><span id="decoded-count"></span></div>
                 <div id="doc-cards"></div>
+                <section class="card"><details><summary>Cost of attendance &amp; borrowing history</summary><div id="cost-items"></div><div id="borrowing-history"></div></details></section>
+                <section class="card"><details><summary>Disbursement dates &amp; loan fees</summary><div id="disbursement-items"></div></details></section>
+                <section class="card"><h2 class="card-title">Repayment estimates</h2><div id="repayment-items"></div></section>
+                <section class="card"><details><summary>Terms, rights &amp; responsibilities</summary><div id="package-terms"></div><div id="borrower-rights"></div></details></section>
               </section>
               <aside class="dashboard-side" aria-label="Risks and next steps">
                 <section class="card risks-panel" aria-labelledby="risks-heading">
@@ -229,7 +247,7 @@
                 <div class="ring-number" id="score-number">—</div>
               </div>
               <div>
-                <div class="score-tag">Package Health Score</div>
+                <div class="score-tag">AI package assessment</div>
                 <div class="score-val" id="score-val">Score not available</div>
                 <div class="score-desc" id="score-desc"></div>
                 <button class="btn ghost" onclick="goTo('redflags')">View red flags →</button>
@@ -277,7 +295,7 @@
                 <div class="ring-number" id="redflags-score-number">—</div>
               </div>
               <div>
-                <div class="score-tag">Package Health Score</div>
+                <div class="score-tag">AI package assessment</div>
                 <div class="score-val" id="redflags-counts"></div>
                 <div class="score-desc" id="redflags-score-desc"></div>
               </div>
@@ -842,6 +860,7 @@
       </main>
     </div>
 
+    <script src="analysis.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
