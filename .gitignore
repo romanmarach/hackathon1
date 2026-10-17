@@ -10,3 +10,6 @@
 Thumbs.db
 .vscode/
 .idea/
+
+# Local browser checks and screenshots
+.preview/
