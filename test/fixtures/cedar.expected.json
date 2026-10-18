@@ -1,0 +1,82 @@
+{
+  "valid": true,
+  "reason": null,
+  "isExample": true,
+  "documentType": "Private student loan approval disclosure",
+  "institution": "Northbridge Technical University",
+  "period": "September 2026 - August 2027",
+  "summary": "Fictional unsigned Cedar Harbor loan TEST-SL-2026-00482 for Alex Morgan, cosigned by Jordan Morgan. One unsecured fixed-rate private education loan: $25,000 gross, $500 fee, $24,500 net to school. Attendance costs and other aid are not stated.",
+  "totalCost": null,
+  "totalCostSource": null,
+  "costItems": [],
+  "reportedTotals": {
+    "giftAid": null, "workStudy": null, "studentLoans": 25000,
+    "parentLoans": null, "totalBorrowing": 25000, "totalAid": null,
+    "unmetNeed": null, "loanFees": 500, "netDisbursed": 24500,
+    "source": "Sections 1-2, pages 1-2; single private student loan"
+  },
+  "funding": [{
+    "id": "cedar-private", "name": "Cedar Harbor private education loan",
+    "kind": "private_loan", "amount": 25000, "amountBasis": "document_period",
+    "status": "Approved; deferred repayment elected; assumed acceptance August 24, 2026; unsigned fictional specimen",
+    "conditions": ["Education costs certified by the school", "Borrower and cosigner each owe the full obligation", "Optional automatic-payment discount is not elected"],
+    "source": "Sections 1-2, pages 1-2",
+    "loan": {
+      "borrower": "student", "ratePercent": 8.5, "rateType": "fixed",
+      "feePercent": 2, "feeAmount": 500, "netAmount": 24500,
+      "interestAccruesInSchool": true, "dailyInterest": null,
+      "capitalization": "$3,187.50 initial school/grace interest capitalizes once March 1, 2028, producing $28,187.50 repayment principal. Initial interest is simple, not monthly compounded. Fees are not capitalized or interest-bearing. Hardship interest capitalizes after each approved period.",
+      "inSchoolDeferment": "12 months, September 1, 2026 through August 31, 2027; no scheduled payments; $2,125 interest accrues on $25,000. Additional school deferment is not automatic.",
+      "gracePeriod": "One six-month grace period, September 1, 2027 through February 29, 2028; no scheduled payments; $1,062.50 interest accrues.",
+      "cosignerRelease": "Review after 24 consecutive, full, on-time principal-and-interest payments, plus degree completion, proof of income and independent credit review. Approval not guaranteed. Deferment months and partial payments do not count.",
+      "defaultTerms": "Delinquent when not received by due date; default after 90 calendar days unpaid or material intentional misrepresentation. After required notice and cure opportunity, acceleration and permitted collection; borrower and cosigner credit reporting possible.",
+      "details": [
+        {"label":"Estimated APR", "value":"8.727%; distinct from the 8.50% interest rate; illustrative nominal annualized cash-flow yield including withheld fee and payment timing, rounded to three decimals", "source":"Section 1, page 1"},
+        {"label":"Interest convention", "value":"30/360: full month 30 days, year 360 days. Monthly interest = outstanding principal x annual rate / 12; partial-month interest = principal x annual rate x contract days / 360. Begins September 1, 2026.", "source":"Section 2, page 2"},
+        {"label":"Optional automatic-payment discount", "value":"Not elected; 0.25 percentage-point reduction to 8.25%, not 6.375%. Requires enrolled, successful automatic bank withdrawals during active repayment only. No discount during school, grace or hardship deferment. If eligibility ends, base 8.50% returns and future payments are recalculated over the remaining term.", "source":"Section 2, page 2"},
+        {"label":"Lifetime costs", "value":"Total payments $41,938.48; lifetime interest $16,938.48; finance charge $17,438.48 includes the $500 fee. Estimates exclude optional discounts, late charges, returned-payment fees and future hardship periods.", "source":"Sections 1 and 3, pages 1 and 3"},
+        {"label":"Payment allocation and prepayment", "value":"Fees, then accrued interest, then principal. No prepayment penalty. Extra payments reduce principal only after fees/interest and do not replace the next installment. Unless revised in writing, monthly payments remain due and early principal reduction shortens payoff. Payoff quotes include interest through requested date.", "source":"Section 3, page 3"},
+        {"label":"Late fee", "value":"Lesser of 5% of unpaid installment portion or $25 once more than 15 calendar days overdue; one late fee per installment. Full $349.48 overdue: $17.47; $100 unpaid: $5. Threshold is not interest-free and does not change due date.", "source":"Section 4, page 4"},
+        {"label":"Other fees", "value":"Returned payment $20 each, separate from late fees; application fee $0; prepayment penalty $0. Collection costs must be actual, reasonable, documented external expenses as permitted by law; no fixed percentage.", "source":"Section 4, page 4"},
+        {"label":"Hardship forbearance", "value":"Discretionary documented hardship; up to three months per approval, six months lifetime. Payments pause only after written approval. Base-rate interest continues and capitalizes at each approved period end. No separate fee. Payments are recalculated to preserve original maturity and can increase. Excluded from estimates.", "source":"Section 4, page 4"}
+      ]
+    }
+  }],
+  "borrowingHistory": {"priorFederalBorrowing":null,"cumulativeFederalBorrowing":null,"aggregateLimit":null,"subsidizedLimit":null,"source":null},
+  "deadlines": [
+    {"action":"Accept offer", "who":"Borrower", "date":"August 25, 2026", "source":"Section 2, page 2"},
+    {"action":"Written cancellation must be received to cancel loan and fee before funding", "who":"Borrower", "date":"August 28, 2026 at 11:59 p.m. Eastern Time", "source":"Section 2, page 2"}
+  ],
+  "disbursements": [{"fundingId":"cedar-private","loanName":"Cedar Harbor private education loan","date":"September 1, 2026","term":"Single disbursement; no additional scheduled disbursements","grossAmount":25000,"feeAmount":500,"netAmount":24500,"source":"Section 2, page 2"}],
+  "repaymentAssumptions": {"excludesInSchoolInterest":false,"assumptions":"Includes $2,125 school interest and $1,062.50 grace interest, capitalized March 1, 2028. All payments on time; no further borrowing, early repayment, hardship pause or automatic-payment discount. Internal precision retained; cents displayed; monthly servicing rounding may differ by a few cents.","source":"Section 3, page 3"},
+  "repaymentPlans": [{"loanName":"Cedar Harbor private education loan","borrower":"student","principal":28187.5,"ratePercent":8.5,"monthlyPayment":349.48,"totalPayments":41938.48,"totalInterest":16938.48,"termMonths":120,"startDate":"April 1, 2028","excludesInSchoolInterest":false,"assumptions":"119 payments of $349.48 from April 1, 2028 through February 1, 2038; final payment $350.36 March 1, 2038. Lifetime interest includes initial school/grace interest. Final installment adjusts for rounded regular payments. Optional discount not elected.","source":"Section 3, page 3"}],
+  "terms": [
+    {"term":"Private loan; no automatic federal benefits","explanation":"No federal income-driven repayment, Public Service Loan Forgiveness or government interest subsidy. Hardship relief only from contract or applicable law. No promised discharge for noncompletion or inability to find employment.","source":"Section 4, page 4"},
+    {"term":"Cosigner liability","explanation":"Jordan Morgan owes the full debt on the same basis as Alex Morgan; lender need not exhaust borrower collection first, subject to applicable law.","source":"Section 5, page 5"},
+    {"term":"Enrollment changes and refunds","explanation":"Report graduation, withdrawal or below-half-time enrollment within 30 days. Earlier end than August 31, 2027 starts six-month grace earlier and revises repayment. Additional school deferment not automatic. School refund reduces principal when received; original fee not refunded after cancellation deadline.","source":"Section 5, page 5"},
+    {"term":"Death or permanent disability","explanation":"Documented requests reviewed individually; no guaranteed contractual discharge. Applicable legal protections control.","source":"Section 5, page 5"},
+    {"term":"Servicing and disputes","explanation":"Electronic statements to alex.morgan@example.com; keep contact information current. Servicing transfer changes neither contractual rate nor repayment obligations. Disputes identify account, amount and reason and do not suspend valid payment obligations. No mandatory arbitration clause.","source":"Section 5, page 5"}
+  ],
+  "rightsAndResponsibilities": [
+    {"kind":"right","text":"Written cancellation received by August 28, 2026 at 11:59 p.m. Eastern Time cancels loan and fee before funding.","source":"Section 2, page 2"},
+    {"kind":"right","text":"Prepay without penalty; request conditional hardship or cosigner-release review without guaranteed approval.","source":"Sections 3-5, pages 3-5"},
+    {"kind":"responsibility","text":"Borrower and cosigner each repay full principal, accrued interest and permitted charges; keep paying valid obligations during disputes.","source":"Sections 2 and 5, pages 2 and 5"},
+    {"kind":"responsibility","text":"Report graduation, withdrawal or below-half-time enrollment within 30 days; keep contact information current.","source":"Section 5, page 5"}
+  ],
+  "detectedSectionCount": 5,
+  "sections": [
+    {"id":"1","title":"Private student loan approval disclosure","status":"extracted","source":"Section 1, page 1","summary":"Fictional disclosure dated August 20, 2026; loan TEST-SL-2026-00482. Borrower Alex Morgan, alex.morgan@example.com; cosigner Jordan Morgan; lender Cedar Harbor Education Finance; servicer Cedar Harbor Loan Servicing. Northbridge Technical University B.S. Computer Science undergraduate, September 2026-August 2027. Unsecured private USD loan; deferred repayment elected. Credit costs retained in loan details.","missingDetails":[],"details":[]},
+    {"id":"2","title":"Disbursement & interest terms","status":"extracted","source":"Section 2, page 2","summary":"Clauses 1-4: full borrower/cosigner repayment promise; school-certified education use; one disbursement; 30/360 simple initial interest; optional discount not elected; acceptance and cancellation.","missingDetails":[],"details":[{"label":"Assumed acceptance event","value":"August 24, 2026; historical scenario event, not the August 25 acceptance deadline. Dates are invented contractual test terms.","source":"Section 2, page 2"}]},
+    {"id":"3","title":"Repayment schedule & cost","status":"extracted","source":"Section 3, page 3","summary":"Clauses 5-7: 12 school months and six grace months; $3,187.50 capitalized March 1, 2028; $28,187.50 entering repayment. One 120-payment schedule including initial school/grace interest; payment allocation and prepayment conditions retained.","missingDetails":[],"details":[{"label":"Expected completion","value":"August 31, 2027","source":"Section 3, page 3"}]},
+    {"id":"4","title":"Fees, hardship & default","status":"extracted","source":"Section 4, page 4","summary":"Clauses 8-11: fees; discretionary hardship up to three months per approval/six lifetime; base-rate accrual and capitalization, original maturity preserved with possible payment increase; 90-day default; no automatic federal benefits.","missingDetails":[],"details":[]},
+    {"id":"5","title":"Cosigner & servicing provisions","status":"extracted","source":"Section 5, page 5","summary":"Clauses 12-16: full cosigner liability and conditional release after 24 qualifying payments; enrollment reporting, refunds, individual death/disability review without guaranteed discharge; electronic servicing, disputes and unsigned specimen. No debt created.","missingDetails":[],"details":[
+      {"label":"Test-only contact","value":"https://loans.example.com; support@example.com; 202-555-0146; 100 Example Plaza, Suite TEST, Fictional City, NJ 00000","source":"Section 5, page 5"},
+      {"label":"Acknowledgments","value":"Alex Morgan borrower, Jordan Morgan cosigner, and lender representative signature/date lines are blank. No signatures applied; no debt created. Intentional source blanks, not unreadable content.","source":"Section 5, page 5"}
+    ]}
+  ],
+  "healthScore": null,
+  "healthScoreBasis": "unknown",
+  "healthReason": "Fictional loan-only packet without attendance costs, other aid or affordability information.",
+  "redFlags": [],
+  "actions": ["Accept by August 25, 2026 if proceeding in this fictional scenario.","If cancelling, ensure written cancellation is received by August 28, 2026 at 11:59 p.m. Eastern Time.","Report graduation, withdrawal or below-half-time enrollment within 30 days."]
+}

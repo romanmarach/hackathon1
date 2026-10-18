@@ -1,3 +1,28 @@
+Cedar Harbor is the primary, user-confirmed answer key. The user reviewed and
+confirmed the complete source-based answers on October 18, 2026 before they were
+encoded in `cedar.expected.json`, using the production extraction schema.
+Source: `testDocs/test_student_loan.pdf` (five main sections, sixteen clauses).
+This is a curated expected result, not a saved AI response.
+
+Key regressions: attendance cost stays unknown; gross borrowing is $25,000,
+fee $500, net $24,500; school/grace interest is already included in the single
+repayment schedule; the unelected 8.25% discount is conditional, not another
+plan; August 24 is an assumed event, not an action deadline. Detailed terms,
+including hardship maturity, release eligibility and discount loss, are retained
+in the fixture's loan details, terms and sections.
+
+`npm test` verifies schema compatibility, normalization and rejection of the
+four observed extraction failures. Score saved model output without API usage:
+`node cedar-eval.js --response .preview/cedar-extraction.json`.
+Focused numeric/structural checks are automated; complete free-text clause
+accuracy still requires comparison with the answer key and PDF. Production
+prompt/schema fixes and a fresh live extraction remain separate work.
+
+Hartwell remains a secondary regression fixture. The user reported mistakes in
+its answer key; it is not fully user-verified and needs a separate source audit.
+Retain its existing checks for compatibility, but prioritize Cedar's confirmed
+answers for its document; do not copy document-specific terms between packets.
+
 The Hartwell expected extraction was manually transcribed from
 `testDocs/Hartwell University Student Loan Package (Test Document).pdf`.
 It is an answer key, not a saved AI response. All rates, limits, institutions,

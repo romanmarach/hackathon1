@@ -15,6 +15,12 @@ repayment cards; successful rendering does not mean the content was correct.
 
 ## Correctly recovered
 
+Update October 18, 2026: the user confirmed the complete source-based answer
+key, now saved in `test/fixtures/cedar.expected.json` as the primary regression
+fixture. `test/cedar.test.js` and `cedar-eval.js` check the key numbers and four
+observed failures. The live-run findings below remain historical; saving the
+answer key does not fix the production extractor or establish a new live pass.
+
 | Fact | Source and extraction |
 | --- | --- |
 | Gross loan principal | $25,000 |
