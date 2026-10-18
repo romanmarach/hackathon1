@@ -69,6 +69,25 @@ The repository includes a Netlify function at `/api/openai/responses` that share
 
 In the Netlify site's environment variables, set `OPENAI_API_KEY` for Functions, and optionally `OPENAI_MODEL`. The local `.env` file is not deployed. Commit and push the Netlify function and `netlify.toml`, then deploy again after configuring the variables.
 
+Netlify runs `npm run build` and publishes `dist/`. The build copies only the
+four browser assets and generates security headers. Server source, test PDFs,
+local analysis output, credentials, and dependencies are excluded. Do not change
+the publish directory back to the project root.
+
+The function declares a limit of 20 requests per 60 seconds per IP and domain.
+After deployment, check Netlify's post-processing log to confirm the rule was
+accepted; invalid rate-limit rules do not necessarily fail a deploy. The endpoint
+also rejects cross-site browser requests, remote file URLs, and account file IDs,
+and returns controlled errors with `Cache-Control: no-store`.
+
+This is a public, unauthenticated AI endpoint. Rate limiting reduces abuse but
+is not authentication or a global spending cap. Monitor provider usage; broader
+public access may warrant login or bot verification. Local `npm start` is for
+development and does not enforce Netlify's edge rate limit.
+
+`OPENAI_MODEL` and `PORT` are the only variables excluded from Netlify secret
+scanning. Never add `OPENAI_API_KEY` to that exclusion list.
+
 ## Using the App
 
 1. Upload a document using the upload button or drag-and-drop area.
@@ -109,6 +128,10 @@ Uploaded documents are sent to OpenAI for analysis. The API key stays on the ser
 The app has no database or account system. The current analysis and conversation are held in browser memory and cleared when the page is refreshed. Switching documents also resets the conversation.
 
 `.env` is excluded from Git. Keep real credentials out of committed files.
+The server does not write uploaded documents or conversations to disk. The
+explicit evaluation scripts save test results under ignored `.preview/`.
+The content security policy allows existing inline event handlers; extracted
+document and chat content is escaped or rendered as text rather than HTML.
 
 ## Current Status
 

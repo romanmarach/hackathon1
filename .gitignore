@@ -5,6 +5,12 @@
 *.pem
 *.key
 
+# Generated dependencies and browser assets
+node_modules/
+dist/
+.netlify/
+npm-debug.log*
+
 # OS/editor noise
 .DS_Store
 Thumbs.db

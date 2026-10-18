@@ -30,7 +30,7 @@ test("Netlify exposes the browser API route and forwards analysis through the sh
     },
   });
   const response = await handler(new Request("https://example.com/api/openai/responses", {
-    method: "POST", body: JSON.stringify({ input: "Analyze this document" }),
+    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ input: "Analyze this document" }),
   }));
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), { status: "completed" });
@@ -39,7 +39,7 @@ test("Netlify exposes the browser API route and forwards analysis through the sh
 test("Netlify reports missing credentials and rejects malformed requests", async () => {
   const { createHandler } = await import("../netlify/functions/openai.mjs");
   const handler = createHandler({ env: {} });
-  const request = (body) => new Request("https://example.com/api/openai/responses", { method: "POST", body });
+  const request = (body) => new Request("https://example.com/api/openai/responses", { method: "POST", headers: { "Content-Type": "application/json" }, body });
   assert.equal((await handler(request('{"input":"test"}'))).status, 500);
   assert.equal((await handler(request("invalid"))).status, 400);
   assert.equal((await handler(new Request("https://example.com/api/openai/responses"))).status, 405);

@@ -7,8 +7,12 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
+    "build": "node scripts/build-public.cjs",
     "test": "node --test",
     "eval:hartwell": "node scripts/evaluate-hartwell.cjs"
+  },
+  "overrides": {
+    "qs": "^6.16.1"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
